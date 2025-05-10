@@ -1,29 +1,66 @@
 import { Button } from "#/components/ui/button";
-import { UserSettings } from "#/types";
-import InjectWaitTimeForm from "./inject-wait-time-form/InjectWaitTimeForm";
-import VideoFilterForm from "./video-filter-form/VideFilterForm";
+import { InjectWaitTime, VideoFilter } from "#/types/fanza";
+import { useForm } from "react-hook-form";
+import FilterBoard from "./FilterBoard";
+import WaitTimeBoard from "./WaitTimeBoard";
+
+export interface UserSettingsFormData {
+  filters?: VideoFilter[];
+  injectWaitTime?: InjectWaitTime;
+}
 
 interface Props {
-  userSettings: UserSettings;
+  initialValues: UserSettingsFormData;
 }
-function UserSettingsForm({ userSettings }: Props) {
+
+function UserSettingsForm({ initialValues }: Props) {
+  const [defaultValues, setDefaultValues] =
+    useState<UserSettingsFormData>(initialValues);
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<UserSettingsFormData>({ defaultValues: defaultValues });
+
+  const onReset = () => {
+    reset(defaultValues);
+  };
+
+  const onSubmit = async (data: UserSettingsFormData) => {
+    console.log(`onSubmit: ${JSON.stringify(data)}`);
+    setDefaultValues(data);
+  };
+
   return (
     <>
       <div className="form-container">
-        <div>
-          <VideoFilterForm initialValues={userSettings.filters} />
-        </div>
-        <div>
-          <InjectWaitTimeForm injectWaitTime={userSettings.injectWaitTime} />
-        </div>
-        <div>
-          <Button type="button" color="secondary">
-            リセット
-          </Button>
-          <Button type="button" color="primary">
-            保存
-          </Button>
-        </div>
+        <FilterBoard
+          watch={watch}
+          setValue={setValue}
+          register={register}
+          control={control}
+        />
+        <WaitTimeBoard register={register} errors={errors} />
+        <Button
+          type="button"
+          className="bg-secondary text-black"
+          onClick={onReset}
+        >
+          リセット
+        </Button>
+        <Button
+          type="button"
+          className="bg-primary text-white"
+          disabled={isSubmitting}
+          onClick={handleSubmit(onSubmit)}
+        >
+          保存
+        </Button>
       </div>
     </>
   );

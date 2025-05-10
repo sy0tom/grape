@@ -1,6 +1,6 @@
 import AppContextProvider from "#/context/AppContextProvider";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { useState } from "react";
-import { IoSettings } from "react-icons/io5";
 import { SettingsPage, TopPage } from "./pages";
 
 function App() {
@@ -26,8 +26,8 @@ function App() {
               </div>
               <div className="p-2 flex justify-end flex-grow">
                 <button onClick={() => onChangeMainContent(<SettingsPage />)}>
-                  <IoSettings
-                    size={32}
+                  <SettingsIcon
+                    fontSize="medium"
                     className="text-white hover:text-gray-300"
                   />
                 </button>

@@ -5,6 +5,7 @@ import { Release } from "./Release";
 import { Sort } from "./Sort";
 
 export interface VideoFilter {
+  id: string;
   name: string;
   mediaType: MediaType;
   quality: Quality;

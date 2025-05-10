@@ -16,7 +16,7 @@ function SettingsPage() {
     return <span>Error: {error.message}</span>;
   }
 
-  return <UserSettingsForm userSettings={data!} />;
+  return <UserSettingsForm initialValues={data!} />;
 }
 
 export default SettingsPage;

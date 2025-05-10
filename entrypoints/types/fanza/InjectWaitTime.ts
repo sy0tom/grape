@@ -1,4 +1,4 @@
 export interface InjectWaitTime {
-  checkboxWaitMs?: number;
+  listLoadingWaitMs?: number;
   addBasketWaitMs?: number;
 }
