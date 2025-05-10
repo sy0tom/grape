@@ -25,50 +25,7 @@ export function Filter({ index, register, control, errors }: Props) {
         />
       </div>
 
-      <div className="flex items-center gap-1">
-        <FormSelect
-          options={[
-            {
-              group: "2D/VR",
-              items: filterOptions.mediaTypes.map((it) => ({
-                label: it.label,
-                value: it.value,
-              })),
-            },
-          ]}
-          placeholder="2D/VR"
-          name={`filters.${index}.mediaType`}
-          control={control}
-        />
-        <FormSelect
-          options={[
-            {
-              group: "配信形式",
-              items: filterOptions.qualities.map((it) => ({
-                label: it.label,
-                value: it.value,
-              })),
-            },
-          ]}
-          placeholder="配信形式"
-          name={`filters.${index}.quality`}
-          control={control}
-        />
-        <FormSelect
-          options={[
-            {
-              group: "価格",
-              items: filterOptions.prices.map((it) => ({
-                label: it.label,
-                value: it.value,
-              })),
-            },
-          ]}
-          placeholder="価格"
-          name={`filters.${index}.price`}
-          control={control}
-        />
-      </div>
+      <div className="flex items-center gap-1"></div>
       <div className="flex items-center gap-1">
         <FormSelect
           options={[

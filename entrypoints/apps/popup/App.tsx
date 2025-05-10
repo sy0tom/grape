@@ -1,9 +1,13 @@
 import AppContextProvider from "#/context/AppContextProvider";
-import SettingsIcon from "@mui/icons-material/Settings";
+import BuildIcon from "@mui/icons-material/Build";
 import { useState } from "react";
-import { SettingsPage, TopPage } from "./pages";
+import { TopPage } from "./pages";
 
 function App() {
+  const onClickOpenOptionsPage = () => {
+    chrome.runtime.openOptionsPage();
+  };
+
   const [mainContent, setMainContent] = useState<React.ReactNode>(<TopPage />);
 
   const onChangeMainContent = (content: React.ReactNode) => {
@@ -25,8 +29,8 @@ function App() {
                 </span>
               </div>
               <div className="p-2 flex justify-end flex-grow">
-                <button onClick={() => onChangeMainContent(<SettingsPage />)}>
-                  <SettingsIcon
+                <button onClick={() => onClickOpenOptionsPage()}>
+                  <BuildIcon
                     fontSize="medium"
                     className="text-white hover:text-gray-300"
                   />
