@@ -1,3 +1,6 @@
+import { InjectWaitTime, VideoFilter } from "./fanza";
+
 export interface UserSettings {
-  name: string;
+  filters?: VideoFilter[];
+  injectWaitTime?: InjectWaitTime;
 }

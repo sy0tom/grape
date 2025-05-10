@@ -8,8 +8,8 @@ export function createUserSettingsService(
     return userSettingsRepository.get();
   };
   return {
-    getUserSettings: async (): Promise<UserSettings | null> => {
-      return getSettings();
+    getUserSettings: async (): Promise<UserSettings> => {
+      return (await getSettings()) ?? ({} as UserSettings);
     },
 
     setUserSettings: async (
