@@ -244,17 +244,20 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   const [inputValue, setInputValue] = useState("");
   const [focusIndex, setFocusIndex] = useState(-1);
   const [inputWidth, setInputWidth] = useState("1ch");
-  const spanRef = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    if (spanRef.current) {
-      const width = spanRef.current.offsetWidth + 4;
-      setInputWidth(`${width}px`);
-    }
-  }, [inputValue]);
+  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const getSpanRefIndex = (index: number) => index + 1;
 
   useEffect(() => {
     setInputValue("");
   }, [focusIndex]);
+
+  useEffect(() => {
+    const span = spanRefs.current[getSpanRefIndex(focusIndex)];
+    if (span) {
+      const width = span.offsetWidth + 4;
+      setInputWidth(`${width}px`);
+    }
+  }, [inputValue, focusIndex]);
 
   const handleFocus = (index: number) => {
     setFocusIndex(index);
@@ -388,7 +391,12 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
           className="absolute top-0 left-0 bg-transparent outline-none"
           style={{ width: inputWidth }}
         />
-        <span ref={spanRef} className="invisible whitespace-pre px-1">
+        <span
+          ref={(el) => {
+            spanRefs.current[getSpanRefIndex(index)] = el;
+          }}
+          className="invisible whitespace-pre px-1"
+        >
           {getValue()}
         </span>
       </div>
