@@ -2,15 +2,10 @@ import Sidebar from "#/components/sidebar/Sidebar";
 import AppContextProvider from "#/context/AppContextProvider";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { HashRouter, Route, Routes } from "react-router";
-import {
-  FeedbackPage,
-  FilterSettingsPage,
-  LoadingWatTimeSettingsPage,
-} from "./pages";
+import { FeedbackPage, FilterSettingsPage } from "./pages";
 
 const sidebarItems: {
   title: string;
@@ -18,7 +13,7 @@ const sidebarItems: {
   icon: OverridableComponent<SvgIconTypeMap>;
 }[] = [
   { title: "Filter Settings", link: "/filter", icon: FilterAltIcon },
-  { title: "Wait time Settings", link: "/wait-time", icon: SettingsIcon },
+  //{ title: "Wait time Settings", link: "/wait-time", icon: SettingsIcon },
   { title: "Feedback", link: "/feedback", icon: FeedbackIcon },
 ];
 
@@ -35,10 +30,10 @@ function App() {
               <Routes>
                 <Route path="/" element={<FilterSettingsPage />} />
                 <Route path="/filter" element={<FilterSettingsPage />} />
-                <Route
+                {/* <Route
                   path="/wait-time"
                   element={<LoadingWatTimeSettingsPage />}
-                />
+                /> */}
                 <Route path="/feedback" element={<FeedbackPage />} />
               </Routes>
             </main>
