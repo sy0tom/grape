@@ -1,4 +1,10 @@
-import { forwardRef, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import Tag from "./Tag";
 
 interface Props {
@@ -17,6 +23,7 @@ const TagInput = forwardRef<Handler, Props>(function TagInput(
 ) {
   const [tags, setTags] = useState<string[]>(initialValues);
   const [inputValue, setInputValue] = useState("");
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
   const spanRef = useRef<HTMLSpanElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -146,10 +153,12 @@ const TagInput = forwardRef<Handler, Props>(function TagInput(
         ref={inputRef}
         type="text"
         className="bg-transparent outline-none font-sans"
-        value={inputValue}
+        value={focusedIndex === -1 ? inputValue : ""}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => onKeyDown(-1, e)}
         placeholder={placeholder}
+        onFocus={() => setFocusedIndex(-1)}
+        onBlur={() => setFocusedIndex(null)}
       />
       {tags.map((tag, index) => (
         <div key={`${tag}-${index}`} className="flex items-center">
@@ -157,13 +166,14 @@ const TagInput = forwardRef<Handler, Props>(function TagInput(
           <div className="relative">
             <input
               id={`tag-input-${index}`}
-              ref={inputRef}
               type="text"
               className="bg-transparent outline-none font-sans"
-              value={inputValue}
+              value={focusedIndex === index ? inputValue : ""}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => onKeyDown(index, e)}
               placeholder={placeholder}
+              onFocus={() => setFocusedIndex(index)}
+              onBlur={() => setFocusedIndex(null)}
             />
             <span
               ref={spanRef}
