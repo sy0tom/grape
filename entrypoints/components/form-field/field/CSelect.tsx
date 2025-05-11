@@ -12,12 +12,12 @@ interface Props {
   options: { group: string; items: { label: string; value: string }[] }[];
   placeholder: string;
   initialValue?: string;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
 }
 
-function CSelect({ options, placeholder, onChange }: Props) {
+function CSelect({ options, placeholder, initialValue, onChange }: Props) {
   return (
-    <Select>
+    <Select onValueChange={onChange} defaultValue={initialValue}>
       <SelectTrigger>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
@@ -26,11 +26,7 @@ function CSelect({ options, placeholder, onChange }: Props) {
           <SelectGroup key={index}>
             <SelectLabel>{option.group}</SelectLabel>
             {option.items.map((item) => (
-              <SelectItem
-                key={item.value}
-                value={item.value}
-                onClick={() => onChange?.(item.value)}
-              >
+              <SelectItem key={item.value} value={item.value}>
                 {item.label}
               </SelectItem>
             ))}

@@ -38,6 +38,7 @@ function FilterSettingsBoard<T extends VideoFilter>({
   };
 
   const onSave = async (data: T) => {
+    console.log(`${JSON.stringify(data)}`);
     await videoFilterService.save(data);
     const newData = await videoFilterService.getAll();
     setFilters(newData);
