@@ -1,19 +1,21 @@
 import { ChangeEvent } from "react";
+import { v4 as uuid } from "uuid";
 import Tag from "./Tag";
 
 interface Props {
-  initialValues: string[];
+  initialValues?: string[];
   placeholder?: string;
   onChange: (value: string[]) => void;
 }
 
 function TagInput({ initialValues, placeholder, onChange }: Props) {
-  const [tags, setTags] = useState<string[]>(initialValues);
+  const [tags, setTags] = useState<string[]>(initialValues ?? []);
   const [inputValue, setInputValue] = useState("");
   const [focusIndex, setFocusIndex] = useState(-1);
   const [inputWidth, setInputWidth] = useState("1ch");
   const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const getSpanRefIndex = (index: number) => index + 1;
+  const id = uuid();
 
   useEffect(() => {
     setInputValue("");
@@ -179,9 +181,8 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     return (
       <div className="relative">
         <input
-          id={`tag-input-${index}`}
+          id={`${id}-tag-input-${index}`}
           type="text"
-          placeholder={placeholder}
           value={getValue()}
           onFocus={() => handleFocus(index)}
           onChange={handleChange}
@@ -202,14 +203,18 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   };
 
   return (
-    <div className="flex items-center p-1">
+    <div className="flex items-center">
       {renderInput(-1)}
-      {tags.map((tag, index) => (
-        <div key={tag} className="flex items-center gap-0.5">
-          <Tag tag={tag} onClick={() => handleRemove(index)} />
-          {renderInput(index)}
-        </div>
-      ))}
+      {tags.length ? (
+        tags.map((tag, index) => (
+          <div key={tag} className="flex items-center gap-0.5">
+            <Tag tag={tag} onClick={() => handleRemove(index)} />
+            {renderInput(index)}
+          </div>
+        ))
+      ) : (
+        <span className="text-gray-600 font-sans">{placeholder}</span>
+      )}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   Control,
   Controller,
@@ -23,26 +22,31 @@ function FormTag<T extends FieldValues>({
   placeholder,
   name,
   control,
-  //errors,
 }: Props<T>) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  // const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div onClick={() => inputRef.current?.focus()}>
+    <div
+    //onClick={() => inputRef.current?.focus()}
+    >
       <FormFieldLayout
         label={label}
-        //error={errors}
         child={
           <Controller
             name={name}
             control={control}
             render={({ field }) => (
-              <TagInput
-                ref={inputRef}
-                initialValues={field.value}
-                placeholder={placeholder}
-                onChange={field.onChange}
-              />
+              <div className="border rounded-md p-2 w-full focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]">
+                {/* TODO: Inputタグのキーボード操作の挙動がおかしいので修正する */}
+                {/* TODO: タグを選択されたときにInputタグの末尾にフォーカスを当てる */}
+                {/* TODO: 子要素に選択されたときに強調させる */}
+                <TagInput
+                  // ref={inputRef}
+                  initialValues={field.value}
+                  placeholder={placeholder}
+                  onChange={field.onChange}
+                />
+              </div>
             )}
           />
         }

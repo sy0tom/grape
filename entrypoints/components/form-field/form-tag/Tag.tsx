@@ -5,7 +5,7 @@ interface Props {
 
 function Tag({ tag, onClick }: Props) {
   return (
-    <div className="px-2 py-1 flex items-center bg-red-400 rounded">
+    <div className="flex items-center bg-red-400 rounded p-0.5">
       <span>{tag}</span>
       <button type="button" className="ml-1 text-sm" onClick={onClick}>
         ×
