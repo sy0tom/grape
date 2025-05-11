@@ -46,6 +46,7 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
               placeholder="お気に入り"
               name="name"
               register={register}
+              requiredMessage="フィルター名は必須です"
               error={errors.name}
             />
           </div>
@@ -67,6 +68,7 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
                 placeholder="配信形式"
                 name={`quality`}
                 control={control}
+                error={errors.quality}
               />
               <FormSelect
                 options={[
@@ -81,6 +83,7 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
                 placeholder="価格"
                 name={`price`}
                 control={control}
+                error={errors.price}
               />
               <FormSelect
                 options={[
@@ -95,6 +98,7 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
                 placeholder="並び替え"
                 name={`sort`}
                 control={control}
+                error={errors.sort}
               />
             </div>
             <div>

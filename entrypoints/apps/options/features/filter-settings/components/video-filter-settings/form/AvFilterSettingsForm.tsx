@@ -48,6 +48,7 @@ function AvFilterSettingsForm({ initialValues, onSave }: Props) {
                 name="name"
                 register={register}
                 error={errors.name}
+                requiredMessage="フィルター名は必須です"
               />
             </div>
             <div>
@@ -68,6 +69,7 @@ function AvFilterSettingsForm({ initialValues, onSave }: Props) {
                   placeholder="2D/VR"
                   name={"mediaType"}
                   control={control}
+                  error={errors.mediaType}
                 />
                 <FormSelect
                   options={[
@@ -84,6 +86,7 @@ function AvFilterSettingsForm({ initialValues, onSave }: Props) {
                   placeholder="配信形式"
                   name={`quality`}
                   control={control}
+                  error={errors.quality}
                 />
                 <FormSelect
                   options={[
@@ -98,6 +101,7 @@ function AvFilterSettingsForm({ initialValues, onSave }: Props) {
                   placeholder="価格"
                   name={`price`}
                   control={control}
+                  error={errors.price}
                 />
                 <FormSelect
                   options={[
@@ -114,6 +118,7 @@ function AvFilterSettingsForm({ initialValues, onSave }: Props) {
                   placeholder="配信開始日"
                   name={`release`}
                   control={control}
+                  error={errors.release}
                 />
                 <FormSelect
                   options={[
@@ -128,6 +133,7 @@ function AvFilterSettingsForm({ initialValues, onSave }: Props) {
                   placeholder="並び替え"
                   name={`sort`}
                   control={control}
+                  error={errors.sort}
                 />
               </div>
               <div>

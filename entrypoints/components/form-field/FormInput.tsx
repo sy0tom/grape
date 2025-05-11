@@ -13,6 +13,7 @@ interface Props<T extends FieldValues> {
   placeholder?: string;
   name: Path<T>;
   register: UseFormRegister<T>;
+  requiredMessage?: string;
   error?: FieldError;
   props?: React.ComponentProps<"input">;
   className?: string;
@@ -24,6 +25,7 @@ function FormInput<T extends FieldValues>({
   placeholder,
   name,
   register,
+  requiredMessage,
   error,
   className,
   props,
@@ -36,7 +38,7 @@ function FormInput<T extends FieldValues>({
         <Input
           type={type}
           placeholder={placeholder}
-          {...register(name)}
+          {...register(name, { required: requiredMessage })}
           className={className}
           {...props}
         />

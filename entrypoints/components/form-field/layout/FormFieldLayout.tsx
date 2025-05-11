@@ -9,7 +9,7 @@ interface Props {
 
 function FormFieldLayout({ label, child, error }: Props) {
   return (
-    <>
+    <div>
       <div className="flex items-center">
         {label && (
           <label htmlFor={`${label}Field`}>
@@ -18,8 +18,8 @@ function FormFieldLayout({ label, child, error }: Props) {
         )}
         {child}
       </div>
-      {error ?? <div className="text-red-500 text-sm">{error}</div>}
-    </>
+      <div className="p-1 text-red-500">{error && error.message}</div>
+    </div>
   );
 }
 

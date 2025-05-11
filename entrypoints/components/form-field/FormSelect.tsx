@@ -33,6 +33,7 @@ function FormSelect<T extends FieldValues>({
         <Controller
           name={name}
           control={control}
+          rules={{ required: "選択してください" }}
           render={({ field }) => (
             <CSelect
               options={options}
