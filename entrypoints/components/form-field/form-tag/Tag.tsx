@@ -1,9 +1,9 @@
-interface TagProps {
+interface Props {
   tag: string;
   onClick: () => void;
 }
 
-function Tag({ tag, onClick }: TagProps) {
+function Tag({ tag, onClick }: Props) {
   return (
     <div className="px-2 py-1 flex items-center bg-red-400 rounded">
       <span>{tag}</span>
