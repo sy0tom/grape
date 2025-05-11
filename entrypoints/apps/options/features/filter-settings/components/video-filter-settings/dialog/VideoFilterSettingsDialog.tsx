@@ -1,21 +1,14 @@
 import { Button } from "#/components/ui/button";
-import { AvFilter } from "#/types";
 import ClearIcon from "@mui/icons-material/Clear";
-import AVFilterSettingsForm from "./AVFilterSettingsForm";
+import { ReactNode } from "react";
 
 interface Props {
   title: string;
-  initialValues?: AvFilter;
-  onSave: (data: AvFilter) => Promise<void>;
+  form: ReactNode;
   onClose: () => void;
 }
 
-function AvFilterSettingsDialog({
-  title,
-  initialValues,
-  onSave,
-  onClose,
-}: Props) {
+function VideoFilterSettingsDialog({ title, form, onClose }: Props) {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
       <div
@@ -35,10 +28,10 @@ function AvFilterSettingsDialog({
             </Button>
           </div>
         </div>
-        <AVFilterSettingsForm initialValues={initialValues} onSave={onSave} />
+        {form}
       </div>
     </div>
   );
 }
 
-export default AvFilterSettingsDialog;
+export default VideoFilterSettingsDialog;

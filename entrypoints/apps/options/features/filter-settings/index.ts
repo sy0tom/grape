@@ -1,1 +1,1 @@
-export { FilterSettingsBoard } from "./components/filter-settings-board";
+export { FilterSettingsBoard } from "./components/video-filter-settings";

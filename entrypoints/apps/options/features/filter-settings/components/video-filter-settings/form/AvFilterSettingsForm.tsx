@@ -1,7 +1,6 @@
 import { FormInput, FormSelect } from "#/components/form-field";
 import { Button } from "#/components/ui/button";
-import { AvFilter } from "#/types";
-import { AvFilterConfig } from "#/types/fanza";
+import { AvFilter, AvFilterConfig } from "#/types/fanza";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
   onSave: (data: AvFilter) => Promise<void>;
 }
 
-function AVFilterSettingsForm({ initialValues, onSave }: Props) {
+function AvFilterSettingsForm({ initialValues, onSave }: Props) {
   const createDefaultValues = (data?: AvFilter): AvFilter => {
     return data ? { ...data } : ({} as AvFilter);
   };
@@ -144,4 +143,4 @@ function AVFilterSettingsForm({ initialValues, onSave }: Props) {
   );
 }
 
-export default AVFilterSettingsForm;
+export default AvFilterSettingsForm;

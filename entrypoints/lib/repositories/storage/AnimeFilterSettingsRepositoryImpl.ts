@@ -3,7 +3,7 @@ import { AnimeFilter } from "#/types";
 import { commonEntityRepository } from "./base/CommonEntityRepository";
 
 export function createAnimeFilterSettingsRepository(): AnimeFilterSettingsRepository {
-  const schema = "local:AmateurFilter" as const;
+  const schema = "local:AnimeFilter" as const;
   const repository = commonEntityRepository<AnimeFilter>(schema);
 
   return {

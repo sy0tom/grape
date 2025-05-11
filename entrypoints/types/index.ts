@@ -3,8 +3,8 @@ export {
   AmateurFilter,
   AnimeFilter,
   AvFilter,
-  FilterConfigs,
   InjectWaitTime,
   LoadingWaitTimeSettings,
   UserFilterSettings,
+  VideoFilter,
 } from "./fanza";

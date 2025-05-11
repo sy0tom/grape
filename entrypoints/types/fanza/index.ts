@@ -6,6 +6,7 @@ export {
   AvFilter,
   AvFilterConfig,
   UserFilterSettings,
+  VideoFilter,
 } from "./filter";
 export { InjectWaitTime } from "./InjectWaitTime";
 export { LoadingWaitTimeSettings } from "./LoadingWaitTimeSettings";
