@@ -1,6 +1,8 @@
 import { createBackgroundRepository } from "#/lib/repositories/background/BackgroundRepositoryImpl";
+import { createAmateurFilterSettingsRepository } from "#/lib/repositories/storage/AmateurFilterSettingsRepositoryImpl";
+import { createAnimeFilterSettingsRepository } from "#/lib/repositories/storage/AnimeFilterSettingsRepositoryImpl";
+import { createAvFilterSettingsRepository } from "#/lib/repositories/storage/AvFilterSettingsRepositoryImpl";
 import { createLoadingWaitTimeSettingsRepository } from "#/lib/repositories/storage/LoadingWaitTimeSettingsRepositoryImpl";
-import { createStorageUserSettingsRepository } from "#/lib/repositories/storage/StorageUserSettingsRepositoryImpl";
 import {
   BackgroundService,
   createBackgroundService,
@@ -10,15 +12,15 @@ import {
   LoadingWaitTimeSettingsService,
 } from "#/services/LoadingWaitTimeSettingsService";
 import {
-  createUserSettingsService,
-  UserSettingsService,
-} from "#/services/UserSettingsService";
+  createUserFilterSettingsService,
+  UserFilterSettingsService,
+} from "#/services/UserFilterSettingsService";
 import { createContext, ReactNode } from "react";
 
 type AppContext = {
-  userSettingsService: UserSettingsService;
-  backgroundService: BackgroundService;
+  userFilterSettingsService: UserFilterSettingsService;
   loadingWaitTimeSettingsService: LoadingWaitTimeSettingsService;
+  backgroundService: BackgroundService;
 };
 
 export const AppContext = createContext<AppContext | null>(null);
@@ -28,22 +30,27 @@ interface Props {
 }
 
 function AppContextProvider({ child }: Props) {
-  const userSettingsRepository = createStorageUserSettingsRepository();
-  const userSettingsService = createUserSettingsService(userSettingsRepository);
+  const avFilterRepository = createAvFilterSettingsRepository();
+  const amateurFilterRepository = createAmateurFilterSettingsRepository();
+  const animeFilterRepository = createAnimeFilterSettingsRepository();
+  const userFilterSettingsService = createUserFilterSettingsService(
+    avFilterRepository,
+    amateurFilterRepository,
+    animeFilterRepository,
+  );
+
+  const waitTimeSettingsRepository = createLoadingWaitTimeSettingsRepository();
+  const loadingWaitTimeSettingsService = createLoadingWaitTimeSettingsService(
+    waitTimeSettingsRepository,
+  );
 
   const backgroundRepository = createBackgroundRepository();
   const backgroundService = createBackgroundService(backgroundRepository);
 
-  const loadingWaitTimeSettingsRepository =
-    createLoadingWaitTimeSettingsRepository();
-  const loadingWaitTimeSettingsService = createLoadingWaitTimeSettingsService(
-    loadingWaitTimeSettingsRepository,
-  );
-
   const services: AppContext = {
-    userSettingsService,
-    backgroundService,
+    userFilterSettingsService,
     loadingWaitTimeSettingsService,
+    backgroundService,
   };
 
   return <AppContext.Provider value={services}>{child}</AppContext.Provider>;

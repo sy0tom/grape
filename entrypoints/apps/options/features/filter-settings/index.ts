@@ -1,1 +1,1 @@
-export { default as FilterSettingsBoard } from "./components/layout/FilterSettingsBoard";
+export { FilterSettingsBoard } from "./components/filter-settings-board";

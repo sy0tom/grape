@@ -8,7 +8,7 @@ export function createLoadingWaitTimeSettingsRepository(): LoadingWaitTimeSettin
 
   return {
     get: async (): Promise<LoadingWaitTimeSettings | null> => {
-      return client.get();
+      return client.getAll();
     },
 
     save: async (data: LoadingWaitTimeSettings): Promise<void> => {
