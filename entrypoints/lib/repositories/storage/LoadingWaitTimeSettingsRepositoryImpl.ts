@@ -11,8 +11,8 @@ export function createLoadingWaitTimeSettingsRepository(): LoadingWaitTimeSettin
       return client.get();
     },
 
-    save: async (settings: LoadingWaitTimeSettings): Promise<void> => {
-      await client.save(settings);
+    save: async (data: LoadingWaitTimeSettings): Promise<void> => {
+      await client.save(data);
     },
   };
 }
