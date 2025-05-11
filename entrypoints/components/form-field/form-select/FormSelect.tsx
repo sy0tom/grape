@@ -5,8 +5,8 @@ import {
   FieldValues,
   Path,
 } from "react-hook-form";
-import CSelect from "./field/CSelect";
-import FormFieldLayout from "./layout/FormFieldLayout";
+import FormFieldLayout from "../layout/FormFieldLayout";
+import SelectOptions from "./SelectOptions";
 
 interface Props<T extends FieldValues> {
   label?: string;
@@ -35,7 +35,7 @@ function FormSelect<T extends FieldValues>({
           control={control}
           rules={{ required: "選択してください" }}
           render={({ field }) => (
-            <CSelect
+            <SelectOptions
               options={options}
               placeholder={placeholder}
               initialValue={field.value}

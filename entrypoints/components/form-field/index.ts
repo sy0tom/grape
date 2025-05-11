@@ -1,2 +1,3 @@
-export { default as FormInput } from "./FormInput";
-export { default as FormSelect } from "./FormSelect";
+export { FormInput } from "./form-input";
+export { FormSelect } from "./form-select";
+export { FormTag } from "./form-tag";

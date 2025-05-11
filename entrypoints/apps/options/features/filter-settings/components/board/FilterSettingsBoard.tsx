@@ -2,12 +2,16 @@ import { Button } from "#/components/ui/button";
 import { VideoFilterSettingsService } from "#/services";
 import { AmateurFilter, AnimeFilter, AvFilter, VideoFilter } from "#/types";
 import { ReactNode } from "react";
-import { FilterFormType } from "..";
 import VideoFilterSettingsDialog from "../dialog/VideoFilterSettingsDialog";
 import AmateurFilterSettingsForm from "../form/AmateurFilterSettingsForm";
 import AnimeFilterSettingsForm from "../form/AnimeFilterSettingsForm";
 import AvFilterSettingsForm from "../form/AvFilterSettingsForm";
 import FilterItem from "./FilterItem";
+
+type FilterFormType =
+  | typeof AvFilterSettingsForm
+  | typeof AmateurFilterSettingsForm
+  | typeof AnimeFilterSettingsForm;
 
 interface Props<T extends VideoFilter> {
   title: string;

@@ -1,1 +1,1 @@
-export { FilterSettingsBoard } from "./components/video-filter-settings";
+export { default as FilterSettingsBoard } from "./components/board/FilterSettingsBoard";

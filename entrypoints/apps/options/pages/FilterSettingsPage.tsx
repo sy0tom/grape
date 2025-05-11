@@ -2,9 +2,9 @@ import { AppContext } from "#/context/AppContextProvider";
 import { AmateurFilter, AnimeFilter, AvFilter } from "#/types";
 import useSWR from "swr";
 import { FilterSettingsBoard } from "../features/filter-settings";
-import AmateurFilterSettingsForm from "../features/filter-settings/components/video-filter-settings/form/AmateurFilterSettingsForm";
-import AnimeFilterSettingsForm from "../features/filter-settings/components/video-filter-settings/form/AnimeFilterSettingsForm";
-import AvFilterSettingsForm from "../features/filter-settings/components/video-filter-settings/form/AvFilterSettingsForm";
+import AmateurFilterSettingsForm from "../features/filter-settings/components/form/AmateurFilterSettingsForm";
+import AnimeFilterSettingsForm from "../features/filter-settings/components/form/AnimeFilterSettingsForm";
+import AvFilterSettingsForm from "../features/filter-settings/components/form/AvFilterSettingsForm";
 
 function FilterSettingsPage() {
   const filterService = useContext(AppContext)?.userFilterSettingsService;

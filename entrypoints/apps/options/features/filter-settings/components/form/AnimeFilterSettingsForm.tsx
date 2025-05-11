@@ -1,4 +1,6 @@
 import { FormInput, FormSelect } from "#/components/form-field";
+
+import { FormTag } from "#/components/form-field";
 import { AnimeFilter, AnimeFilterConfig } from "#/types/fanza";
 import { useForm } from "react-hook-form";
 import FormLayout from "./FormLayout";
@@ -103,11 +105,11 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
             </div>
             <div>
               <span>キーワード</span>
-              <FormInput
-                type="text"
-                placeholder="+巨乳 -ベスト -BEST"
+              <FormTag
+                placeholder="巨乳 -BEST"
                 name="keywords"
-                register={register}
+                control={control}
+                errors={errors.keywords}
               />
             </div>
           </div>

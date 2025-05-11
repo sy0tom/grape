@@ -4,8 +4,8 @@ import {
   Path,
   UseFormRegister,
 } from "react-hook-form";
-import { Input } from "../ui/input";
-import FormFieldLayout from "./layout/FormFieldLayout";
+import { Input } from "../../ui/input";
+import FormFieldLayout from "../layout/FormFieldLayout";
 
 interface Props<T extends FieldValues> {
   label?: string;

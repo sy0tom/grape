@@ -15,7 +15,12 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-function CSelect({ options, placeholder, initialValue, onChange }: Props) {
+function SelectOptions({
+  options,
+  placeholder,
+  initialValue,
+  onChange,
+}: Props) {
   return (
     <Select onValueChange={onChange} value={initialValue ?? ""}>
       <SelectTrigger>
@@ -37,4 +42,4 @@ function CSelect({ options, placeholder, initialValue, onChange }: Props) {
   );
 }
 
-export default CSelect;
+export default SelectOptions;

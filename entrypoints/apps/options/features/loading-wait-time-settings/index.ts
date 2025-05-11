@@ -1,1 +1,1 @@
-export { LoadingWaitTimeSettingsForm } from "./components/loading-wait-time-settings-form";
+export { default as LoadingWaitTimeSettingsForm } from "./components/LoadingWaitTimeSettingsForm";
