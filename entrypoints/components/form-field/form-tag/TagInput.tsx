@@ -25,14 +25,25 @@ const TagInput = forwardRef<Handler, Props>(function TagInput(
   const [inputValue, setInputValue] = useState("");
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
-  const spanRef = useRef<HTMLSpanElement>(null);
+  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const getSpanRefIndex = (index: number) => index + 1;
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (inputRef.current && spanRef.current) {
-      inputRef.current.style.width = `${spanRef.current.offsetWidth + 12}px`;
+    if (focusedIndex !== null) {
+      const span = spanRefs.current[getSpanRefIndex(focusedIndex)];
+      const input = document.getElementById(
+        `tag-input-${focusedIndex}`,
+      ) as HTMLInputElement | null;
+      if (input) {
+        if (inputValue === "") {
+          input.style.width = "0.25rem";
+        } else if (span) {
+          input.style.width = `${span.offsetWidth + 12}px`;
+        }
+      }
     }
-  }, [inputValue]);
+  }, [inputValue, focusedIndex]);
 
   useEffect(() => {
     setTags(initialValues);
@@ -150,7 +161,10 @@ const TagInput = forwardRef<Handler, Props>(function TagInput(
     >
       <input
         id="tag-input--1"
-        ref={inputRef}
+        ref={(el) => {
+          inputRef.current = el;
+          spanRefs.current[getSpanRefIndex(-1)] = el;
+        }}
         type="text"
         className="bg-transparent outline-none font-sans"
         value={focusedIndex === -1 ? inputValue : ""}
@@ -158,8 +172,23 @@ const TagInput = forwardRef<Handler, Props>(function TagInput(
         onKeyDown={(e) => onKeyDown(-1, e)}
         placeholder={placeholder}
         onFocus={() => setFocusedIndex(-1)}
-        onBlur={() => setFocusedIndex(null)}
+        onBlur={(e) => {
+          setFocusedIndex(null);
+          if (e.currentTarget) {
+            e.currentTarget.style.width = "0.25rem";
+          }
+        }}
+        style={{
+          width:
+            focusedIndex === -1 && inputValue !== "" ? undefined : "0.25rem",
+        }}
       />
+      <span
+        ref={(el) => (spanRefs.current[getSpanRefIndex(-1)] = el)}
+        className="absolute top-0 left-0 invisible whitespace-pre px-2  font-sans"
+      >
+        {inputValue || placeholder || ""}
+      </span>
       {tags.map((tag, index) => (
         <div key={`${tag}-${index}`} className="flex items-center">
           <Tag tag={tag} onClick={() => onRemoveTag(index)} />
@@ -167,16 +196,27 @@ const TagInput = forwardRef<Handler, Props>(function TagInput(
             <input
               id={`tag-input-${index}`}
               type="text"
-              className="bg-transparent outline-none font-sans"
+              className="px-1 bg-transparent outline-none font-sans"
               value={focusedIndex === index ? inputValue : ""}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => onKeyDown(index, e)}
               placeholder={placeholder}
               onFocus={() => setFocusedIndex(index)}
-              onBlur={() => setFocusedIndex(null)}
+              onBlur={(e) => {
+                setFocusedIndex(null);
+                if (e.currentTarget) {
+                  e.currentTarget.style.width = "0.25rem";
+                }
+              }}
+              style={{
+                width:
+                  focusedIndex === index && inputValue !== ""
+                    ? undefined
+                    : "0.25rem",
+              }}
             />
             <span
-              ref={spanRef}
+              ref={(el) => (spanRefs.current[getSpanRefIndex(index)] = el)}
               className="absolute top-0 left-0 invisible whitespace-pre px-2  font-sans"
             >
               {inputValue || placeholder || ""}
