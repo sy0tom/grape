@@ -247,10 +247,14 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   const spanRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     if (spanRef.current) {
-      const width = spanRef.current.offsetWidth + 8; // paddingなど考慮
+      const width = spanRef.current.offsetWidth + 4;
       setInputWidth(`${width}px`);
     }
   }, [inputValue]);
+
+  useEffect(() => {
+    setInputValue("");
+  }, [focusIndex]);
 
   const handleFocus = (index: number) => {
     setFocusIndex(index);
@@ -392,7 +396,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center p-1">
       {renderInput(-1)}
       {tags.map((tag, index) => (
         <div key={tag} className="flex items-center gap-0.5">
