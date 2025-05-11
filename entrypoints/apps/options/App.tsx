@@ -1,3 +1,4 @@
+import TagInput from "#/components/form-field/form-tag/TagInput";
 import Sidebar from "#/components/sidebar/Sidebar";
 import AppContextProvider from "#/context/AppContextProvider";
 import FeedbackIcon from "@mui/icons-material/Feedback";
@@ -27,6 +28,7 @@ function App() {
               <Sidebar items={sidebarItems} />
             </header>
             <main>
+              <TagInput initialValues={["Aaaa", "bbbb"]} onChange={() => {}} />
               <Routes>
                 <Route path="/" element={<FilterSettingsPage />} />
                 <Route path="/filter" element={<FilterSettingsPage />} />
