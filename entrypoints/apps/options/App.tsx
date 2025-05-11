@@ -6,9 +6,11 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { HashRouter, Route, Routes } from "react-router";
-import FeedbackPage from "./pages/FeedbackPage";
-import FilterSettingsPage from "./pages/FilterSettingsPage";
-import LoadingWatTimeSettings from "./pages/LoadingWatTimeSettings";
+import {
+  FeedbackPage,
+  FilterSettingsPage,
+  LoadingWatTimeSettingsPage,
+} from "./pages";
 
 const sidebarItems: {
   title: string;
@@ -33,7 +35,10 @@ function App() {
               <Routes>
                 <Route path="/" element={<FilterSettingsPage />} />
                 <Route path="/filter" element={<FilterSettingsPage />} />
-                <Route path="/wait-time" element={<LoadingWatTimeSettings />} />
+                <Route
+                  path="/wait-time"
+                  element={<LoadingWatTimeSettingsPage />}
+                />
                 <Route path="/feedback" element={<FeedbackPage />} />
               </Routes>
             </main>

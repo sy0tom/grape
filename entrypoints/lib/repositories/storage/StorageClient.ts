@@ -1,4 +1,4 @@
-export type Schema = "local:UserSettings";
+export type Schema = "local:UserSettings" | "local:LoadingWaitTimeSettings";
 
 export function createLocalStorageClient<T>(schema: Schema) {
   return {
