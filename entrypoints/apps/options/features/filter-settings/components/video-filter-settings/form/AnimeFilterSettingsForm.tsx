@@ -1,7 +1,7 @@
 import { FormInput, FormSelect } from "#/components/form-field";
-import { Button } from "#/components/ui/button";
 import { AnimeFilter, AnimeFilterConfig } from "#/types/fanza";
 import { useForm } from "react-hook-form";
+import FormLayout from "./FormLayout";
 
 interface Props {
   initialValues?: AnimeFilter;
@@ -34,86 +34,82 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
   };
 
   return (
-    <div className="form-container">
-      <form>
-        <div>
-          <span>フィルター名</span>
-          <FormInput
-            type="text"
-            placeholder="お気に入り"
-            name="name"
-            register={register}
-            error={errors.name}
-          />
-        </div>
-        <div>
-          <span>フィルター条件</span>
-          <div className="flex gap-1">
-            <FormSelect
-              options={[
-                {
-                  group: "配信形式",
-                  items: AnimeFilterConfig.filterOptions.qualities.map(
-                    (it) => ({
-                      label: it.label,
-                      value: it.value,
-                    }),
-                  ),
-                },
-              ]}
-              placeholder="配信形式"
-              name={`quality`}
-              control={control}
-            />
-            <FormSelect
-              options={[
-                {
-                  group: "価格",
-                  items: AnimeFilterConfig.filterOptions.prices.map((it) => ({
-                    label: it.label,
-                    value: it.value,
-                  })),
-                },
-              ]}
-              placeholder="価格"
-              name={`price`}
-              control={control}
-            />
-            <FormSelect
-              options={[
-                {
-                  group: "並び替え",
-                  items: AnimeFilterConfig.filterOptions.sorts.map((it) => ({
-                    label: it.label,
-                    value: it.value,
-                  })),
-                },
-              ]}
-              placeholder="並び替え"
-              name={`sort`}
-              control={control}
+    <FormLayout
+      onSave={handleSubmit(_onSave)}
+      onReset={onReset}
+      child={
+        <>
+          <div>
+            <span>フィルター名</span>
+            <FormInput
+              type="text"
+              placeholder="お気に入り"
+              name="name"
+              register={register}
+              error={errors.name}
             />
           </div>
           <div>
-            <span>キーワード</span>
-            <FormInput
-              type="text"
-              placeholder="+巨乳 -ベスト -BEST"
-              name="keywords"
-              register={register}
-            />
+            <span>フィルター条件</span>
+            <div className="flex gap-1">
+              <FormSelect
+                options={[
+                  {
+                    group: "配信形式",
+                    items: AnimeFilterConfig.filterOptions.qualities.map(
+                      (it) => ({
+                        label: it.label,
+                        value: it.value,
+                      }),
+                    ),
+                  },
+                ]}
+                placeholder="配信形式"
+                name={`quality`}
+                control={control}
+              />
+              <FormSelect
+                options={[
+                  {
+                    group: "価格",
+                    items: AnimeFilterConfig.filterOptions.prices.map((it) => ({
+                      label: it.label,
+                      value: it.value,
+                    })),
+                  },
+                ]}
+                placeholder="価格"
+                name={`price`}
+                control={control}
+              />
+              <FormSelect
+                options={[
+                  {
+                    group: "並び替え",
+                    items: AnimeFilterConfig.filterOptions.sorts.map((it) => ({
+                      label: it.label,
+                      value: it.value,
+                    })),
+                  },
+                ]}
+                placeholder="並び替え"
+                name={`sort`}
+                control={control}
+              />
+            </div>
+            <div>
+              <span>キーワード</span>
+              <FormInput
+                type="text"
+                placeholder="+巨乳 -ベスト -BEST"
+                name="keywords"
+                register={register}
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <Button type="button" onClick={onReset}>
-            リセット
-          </Button>
-          <Button type="button" onClick={handleSubmit(_onSave)}>
-            保存
-          </Button>
-        </div>
-      </form>
-    </div>
+        </>
+      }
+    />
   );
 }
 

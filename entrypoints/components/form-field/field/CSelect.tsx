@@ -16,8 +16,14 @@ interface Props {
 }
 
 function CSelect({ options, placeholder, initialValue, onChange }: Props) {
+  // const [value, setValue] = useState(initialValue);
+
+  // useEffect(() => {
+  //   setValue(initialValue);
+  // }, [initialValue]);
+
   return (
-    <Select onValueChange={onChange} defaultValue={initialValue}>
+    <Select onValueChange={onChange} value={initialValue ?? ""}>
       <SelectTrigger>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
