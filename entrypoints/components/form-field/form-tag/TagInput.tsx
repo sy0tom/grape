@@ -368,13 +368,16 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   };
 
   const renderInput = (index: number) => {
+    const getValue = () => {
+      return index === focusIndex ? inputValue : "";
+    };
     return (
       <div className="relative">
         <input
           id={`tag-input-${index}`}
           type="text"
           placeholder={placeholder}
-          value={index === focusIndex ? inputValue : ""}
+          value={getValue()}
           onFocus={() => handleFocus(index)}
           onChange={handleChange}
           onKeyDown={(e) => handleKeyDown(e)}
@@ -382,7 +385,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
           style={{ width: inputWidth }}
         />
         <span ref={spanRef} className="invisible whitespace-pre px-1">
-          {focusIndex === index ? inputValue : ""}
+          {getValue()}
         </span>
       </div>
     );
@@ -392,7 +395,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     <div className="flex items-center">
       {renderInput(-1)}
       {tags.map((tag, index) => (
-        <div key={tag} className="flex items-center gap-1">
+        <div key={tag} className="flex items-center gap-0.5">
           <Tag tag={tag} onClick={() => handleRemove(index)} />
           {renderInput(index)}
         </div>
