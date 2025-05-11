@@ -44,12 +44,14 @@ function FilterBoard({ watch, setValue, register, control }: Props) {
       newFilters.push(data);
     }
     setFilters(newFilters);
+    setValue("filters", newFilters);
     onCloseDialog();
   };
 
   const onRemoveFilter = (id: string) => {
     const newFilters = removeFilter(id);
     setFilters(newFilters);
+    setValue("filters", newFilters);
   };
 
   const removeFilter = (id: string): VideoFilter[] => {
@@ -73,7 +75,7 @@ function FilterBoard({ watch, setValue, register, control }: Props) {
           <span>フィルターの登録はありません</span>
         ) : (
           filters?.map((filter) => (
-            <div key={filter.id}>
+            <div key={filter.id} className="p-1">
               <FilterItem
                 filter={filter}
                 onEdit={() => onOpenDialog(filter)}

@@ -21,7 +21,7 @@ function FilterDialog({ initialValues, onSave, onCancel }: Props) {
         onClick={onCancel}
       />
       <div
-        className="bg-white rounded-lg p-2 shadow-lg w-[740px] relative z-10"
+        className="bg-white rounded-lg p-4 shadow-lg w-[740px] relative z-10"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between w-full">
@@ -32,9 +32,7 @@ function FilterDialog({ initialValues, onSave, onCancel }: Props) {
             </Button>
           </div>
         </div>
-        <div className="p-2">
-          <FilterForm initialValues={initialValues} onSave={onSave} />
-        </div>
+        <FilterForm initialValues={initialValues} onSave={onSave} />
       </div>
     </div>
   );
