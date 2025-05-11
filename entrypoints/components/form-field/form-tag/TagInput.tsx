@@ -273,9 +273,15 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
 
     if (value !== "") {
       // 要素の追加
-      if (isEndKey(key, e.nativeEvent.isComposing)) {
+      if (
+        isInputEnd(
+          key,
+          e.nativeEvent.isComposing,
+          e.currentTarget.selectionStart,
+        )
+      ) {
         e.preventDefault();
-        addTag(focusIndex, value);
+        addTag(focusIndex, value, isLeftKey(key));
       }
       return;
     }
@@ -305,11 +311,31 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     removeTag(index);
   };
 
+  const isInputEnd = (
+    key: string,
+    isComposing: boolean,
+    pos: number | null,
+  ) => {
+    return (
+      isEndKey(key, isComposing) ||
+      isEndByLeft(key, pos) ||
+      isEndByRight(key, pos)
+    );
+  };
+
   const isEndKey = (key: string, isComposing: boolean): boolean => {
     return (
       !isComposing &&
       (key === "Enter" || key === "Tab" || key === " " || key === ",")
     );
+  };
+
+  const isEndByLeft = (key: string, pos: number | null) => {
+    return isLeftKey(key) && pos === 0;
+  };
+
+  const isEndByRight = (key: string, pos: number | null) => {
+    return isRightKey(key) && pos === inputValue.length;
   };
 
   const isRemoveKey = (key: string) => {
@@ -324,14 +350,18 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     return key === "ArrowRight";
   };
 
-  const addTag = (index: number, value: string) => {
+  const addTag = (index: number, value: string, isLeftKey: boolean) => {
     if (tags.includes(value)) {
       return;
     }
     const nextTags = [...tags];
     nextTags.splice(index + 1, 0, value);
     updateTag(nextTags);
-    moveRight(index, true);
+    if (isLeftKey) {
+      moveLeft(index, true);
+    } else {
+      moveRight(index, true);
+    }
   };
 
   const removeTag = (index: number) => {
