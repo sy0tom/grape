@@ -8,16 +8,19 @@ interface Props {
   onChange: (value: string[]) => void;
 }
 
+const elementIdPrefix = uuid();
+
 function TagInput({ initialValues, placeholder, onChange }: Props) {
+  const minFocusIndex = -1;
   const [tags, setTags] = useState<string[]>(initialValues ?? []);
   const [inputValue, setInputValue] = useState("");
-  const [focusIndex, setFocusIndex] = useState(-1);
+  const [focusIndex, setFocusIndex] = useState(minFocusIndex);
   const [inputWidth, setInputWidth] = useState("1ch");
   const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const getSpanRefIndex = (index: number) => index + 1;
-  const id = uuid();
 
   useEffect(() => {
+    console.log(`focus changed ${focusIndex}`);
     setInputValue("");
   }, [focusIndex]);
 
@@ -42,37 +45,52 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     const value = inputValue.trim();
 
     if (value !== "") {
-      // 要素の追加
-      if (
-        isInputEnd(
-          key,
-          e.nativeEvent.isComposing,
-          e.currentTarget.selectionStart,
-        )
-      ) {
-        e.preventDefault();
-        addTag(focusIndex, value, isLeftKey(key));
+      if (!tags.includes(value)) {
+        if (
+          isInputEnd(
+            key,
+            e.nativeEvent.isComposing,
+            e.currentTarget.selectionStart,
+          )
+        ) {
+          // 要素の追加
+          e.preventDefault();
+          addTag(focusIndex, value);
+          if (isLeftKey(key)) {
+            moveLeft(focusIndex, 1, true);
+          } else if (isRightKey(key)) {
+            if (focusIndex >= tags.length - 1) {
+              moveRight(focusIndex, 1, true);
+            } else {
+              moveRight(focusIndex, 2, true);
+            }
+          } else {
+            moveRight(focusIndex, 1, true);
+          }
+        }
       }
       return;
     }
 
-    // 要素の削除
     if (isRemoveKey(key)) {
+      // 要素の削除
       e.preventDefault();
       removeTag(focusIndex);
+      moveLeft(focusIndex, 1, true);
       return;
     }
 
-    // カーソルの左移動
-    if (isLeftKey(key) && focusIndex > -1) {
+    if (isLeftKey(key) && focusIndex > minFocusIndex) {
+      // カーソルの左移動
       e.preventDefault();
-      moveLeft(focusIndex);
+      moveLeft(focusIndex, 1, false);
       return;
     }
-    // カーソルの右移動
+
     if (isRightKey(key) && focusIndex < tags.length - 1) {
+      // カーソルの右移動
       e.preventDefault();
-      moveRight(focusIndex);
+      moveRight(focusIndex, 1, false);
       return;
     }
   };
@@ -120,18 +138,10 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     return key === "ArrowRight";
   };
 
-  const addTag = (index: number, value: string, isLeftKey: boolean) => {
-    if (tags.includes(value)) {
-      return;
-    }
+  const addTag = (index: number, value: string) => {
     const nextTags = [...tags];
     nextTags.splice(index + 1, 0, value);
     updateTag(nextTags);
-    if (isLeftKey) {
-      moveLeft(index, true);
-    } else {
-      moveRight(index, true);
-    }
   };
 
   const removeTag = (index: number) => {
@@ -141,37 +151,46 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     const nextTags = [...tags];
     nextTags.splice(index, 1);
     updateTag(nextTags);
-    moveLeft(index, true);
   };
 
   const updateTag = (nextTags: string[]) => {
     setTags(nextTags);
     onChange(nextTags);
+    setInputValue("");
   };
 
-  const moveLeft = (index: number, shouldBeWait?: boolean) => {
+  const moveLeft = (index: number, next: number, shouldBeWait: boolean) => {
+    const nextIndex = index - next;
     if (shouldBeWait) {
       setTimeout(() => {
-        moveFocus(index - 1);
+        moveFocus(nextIndex);
       }, 50);
       return;
     }
-    moveFocus(index - 1);
+    moveFocus(nextIndex);
   };
 
-  const moveRight = (index: number, shouldBeWait?: boolean) => {
+  const moveRight = (index: number, next: number, shouldBeWait: boolean) => {
+    const nextIndex = index + next;
     if (shouldBeWait) {
       setTimeout(() => {
-        moveFocus(index + 1);
+        moveFocus(nextIndex);
       }, 50);
 
       return;
     }
-    moveFocus(index + 1);
+    moveFocus(nextIndex);
   };
 
   const moveFocus = (nextIndex: number) => {
-    document.getElementById(`tag-input-${nextIndex}`)?.focus();
+    const elementId = `${elementIdPrefix}-tag-input-${nextIndex}`;
+    const nextElement = document.getElementById(elementId);
+    if (nextElement) {
+      nextElement?.focus();
+      return;
+    }
+    console.log(`element is not found. ${elementId}`);
+    //setFocusIndex(nextIndex);
   };
 
   const renderInput = (index: number) => {
@@ -181,7 +200,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     return (
       <div className="relative">
         <input
-          id={`${id}-tag-input-${index}`}
+          id={`${elementIdPrefix}-tag-input-${index}`}
           type="text"
           value={getValue()}
           onFocus={() => handleFocus(index)}
@@ -204,7 +223,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
 
   return (
     <div className="flex items-center">
-      {renderInput(-1)}
+      {renderInput(minFocusIndex)}
       {tags.length ? (
         tags.map((tag, index) => (
           <div key={tag} className="flex items-center gap-0.5">
