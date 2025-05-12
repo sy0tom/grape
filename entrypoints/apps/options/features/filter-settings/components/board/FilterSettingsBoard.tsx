@@ -51,6 +51,12 @@ function FilterSettingsBoard({
     setIsDialogOpen(false);
   };
 
+  const onCopy = (data: VideoFilter) => {
+    const newData = { ...data, id: "" } as VideoFilter;
+    setSelectedFilter(newData);
+    setIsDialogOpen(true);
+  };
+
   const onDelete = async (id: string) => {
     await videoFilterSettingsService.delete(id);
     const newData = await videoFilterSettingsService.getAll();
@@ -98,6 +104,7 @@ function FilterSettingsBoard({
             <FilterItem
               filter={filter}
               onEdit={() => onOpenDialog(filter)}
+              onCopy={() => onCopy(filter)}
               onDelete={() => onDelete(filter.id)}
             />
           </div>
