@@ -12,7 +12,7 @@ export default defineContentScript({
   },
 });
 
-// todo ページ切り替えの際にも実行されるようにする
+// TODO ページ切り替えの際にも実行されるようにする
 function handleInjection(url: string) {
   if (url.startsWith("https://video.dmm.co.jp/av/")) {
     injectSavedFiltersMain(url, "AvFilter");
