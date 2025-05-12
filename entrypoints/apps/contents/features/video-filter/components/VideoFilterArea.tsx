@@ -33,23 +33,30 @@ function VideoFilterArea({ type }: Props) {
     return <div>Error loading data</div>;
   }
 
+  const renderButtons = (filters: VideoFilter[] | undefined) => {
+    return (
+      <div className="flex items-center gap-1">
+        {filters?.map((filter) => (
+          <Button
+            key={filter.id}
+            className="bg-primary"
+            onClick={() => overrideUrl(filter)}
+          >
+            {filter.name}
+          </Button>
+        ))}
+      </div>
+    );
+  };
+
   switch (type) {
     case "AvFilter":
-      return (
-        <div className="flex items-center gap-1">
-          {data?.avFilters.map((filter) => (
-            <Button
-              key={filter.id}
-              className="bg-primary"
-              onClick={() => overrideUrl(filter)}
-            >
-              {filter.name}
-            </Button>
-          ))}
-        </div>
-      );
+      return renderButtons(data?.avFilters);
+    case "AmateurFilter":
+      return renderButtons(data?.amateurFilters);
+    case "AnimeFilter":
+      return renderButtons(data?.animeFilters);
   }
-  return <div>VideoFilter</div>;
 }
 
 export default VideoFilterArea;
