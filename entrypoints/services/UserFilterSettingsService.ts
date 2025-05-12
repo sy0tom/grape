@@ -1,13 +1,27 @@
+import {
+  AmateurFilterSettingsRepository,
+  AnimeFilterSettingsRepository,
+} from "#/repositories";
+import { VideoFilterSettingsService } from "#/services";
 import { UserFilterSettings } from "#/types";
-import { AmateurFilterSettingsService } from "./AmateurFilterSettingsService";
-import { AnimeFilterSettingsService } from "./AnimeFilterSettingsService";
-import { AvFilterSettingsService } from "./AvFilterSettingsService";
+import { AvFilterSettingsRepository } from "../repositories/AvFilterSettingsRepository";
+import { createVideoFilterSettingsService } from "./VideoFilterSettingsService";
 
 export function createUserFilterSettingsService(
-  avService: AvFilterSettingsService,
-  amateurService: AmateurFilterSettingsService,
-  animeService: AnimeFilterSettingsService,
+  avFilterSettingsRepository: AvFilterSettingsRepository,
+  amateurFilterSettingsRepository: AmateurFilterSettingsRepository,
+  animeFilterSettingsRepository: AnimeFilterSettingsRepository,
 ) {
+  const avService = createVideoFilterSettingsService(
+    avFilterSettingsRepository,
+  );
+  const amateurService = createVideoFilterSettingsService(
+    amateurFilterSettingsRepository,
+  );
+  const animeService = createVideoFilterSettingsService(
+    animeFilterSettingsRepository,
+  );
+
   const getAll = async (): Promise<UserFilterSettings> => {
     const [avFilters, amateurFilters, animeFilters] = await Promise.all([
       avService.getAll(),
@@ -23,9 +37,10 @@ export function createUserFilterSettingsService(
   };
 
   return {
-    getInitializeData: async (): Promise<UserFilterSettings> => {
-      return await getAll();
-    },
+    getInitializeData: async (): Promise<UserFilterSettings> => getAll(),
+    getAvService: (): VideoFilterSettingsService => avService,
+    getAmateurService: (): VideoFilterSettingsService => amateurService,
+    getAnimeService: (): VideoFilterSettingsService => animeService,
   };
 }
 

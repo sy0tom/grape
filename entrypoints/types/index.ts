@@ -1,10 +1,11 @@
 export { BackgroundTask } from "./BackgroundTask";
 export {
-  AmateurFilter,
-  AnimeFilter,
-  AvFilter,
   InjectWaitTime,
   LoadingWaitTimeSettings,
+  OptionFilterConfig,
   UserFilterSettings,
   VideoFilter,
+  amateurOptionFilterConfig,
+  animeOptionFilterConfig,
+  avOptionFilterConfig,
 } from "./fanza";

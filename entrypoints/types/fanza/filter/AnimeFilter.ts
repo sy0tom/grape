@@ -1,15 +1,12 @@
-import { BaseFilter, BaseFilterParams } from "./BaseFilter";
-
-export const qualityOptions = [
+import { Option, OptionFilterConfig } from "./VideoFilter";
+const qualityOptions: Option[] = [
   { label: "全て", value: " " },
   { label: "ストリーミング", value: "max_quality=various" },
   { label: "ダウンロード", value: "max_quality=sd" },
   { label: "HD版ダウンロード", value: "max_quality=hd" },
 ] as const;
 
-type Quality = (typeof qualityOptions)[number]["value"];
-
-export const priceOptions = [
+const priceOptions: Option[] = [
   { label: "全て", value: " " },
   { label: "300円以下", value: "price_min=300" },
   { label: "500円以下", value: "price_min=500" },
@@ -18,9 +15,7 @@ export const priceOptions = [
   { label: "2001円以上", value: "price_max=2001" },
 ] as const;
 
-type Price = (typeof priceOptions)[number]["value"];
-
-export const sortOptions = [
+const sortOptions: Option[] = [
   { label: "人気順", value: "sort=ranking" },
   { label: "売上本数順", value: "sort=saleranking_asc" },
   { label: "新着順", value: "sort=date" },
@@ -29,20 +24,8 @@ export const sortOptions = [
   { label: "価格の安い順", value: "sort=price_asc" },
 ] as const;
 
-type Sort = (typeof sortOptions)[number]["value"];
-
-export const AnimeFilterConfig = {
-  filterOptions: {
-    prices: priceOptions,
-    qualities: qualityOptions,
-    sorts: sortOptions,
-  },
-};
-
-export type AnimeFilter = BaseFilter<AnimeFilterParams>;
-
-type AnimeFilterParams = BaseFilterParams & {
-  quality: Quality;
-  price: Price;
-  sort: Sort;
+export const animeOptionFilterConfig: OptionFilterConfig = {
+  priceFilter: { label: "価格", options: priceOptions },
+  qualityFilter: { label: "配信形式", options: qualityOptions },
+  sortFilter: { label: "ソート", options: sortOptions },
 };

@@ -1,9 +1,7 @@
-import { AmateurFilter } from "./AmateurFilter";
-import { AnimeFilter } from "./AnimeFilter";
-import { AvFilter } from "./AvFilter";
+import { VideoFilter } from "./VideoFilter";
 
 export interface UserFilterSettings {
-  avFilters: AvFilter[];
-  amateurFilters: AmateurFilter[];
-  animeFilters: AnimeFilter[];
+  avFilters: VideoFilter[];
+  amateurFilters: VideoFilter[];
+  animeFilters: VideoFilter[];
 }

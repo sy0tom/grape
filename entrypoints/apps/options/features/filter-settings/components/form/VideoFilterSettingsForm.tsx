@@ -1,0 +1,103 @@
+import { FormInput, FormTag } from "#/components/form-field";
+import { OptionFilterConfig, VideoFilter } from "#/types";
+import { Filter } from "#/types/fanza";
+import { Path, useForm } from "react-hook-form";
+import FilterOptions from "./FilterOptions";
+import FormLayout from "./FormLayout";
+
+interface Props<T extends VideoFilter> {
+  initialValues?: T;
+  optionFilterConfig: OptionFilterConfig;
+  onSave: (data: VideoFilter) => Promise<void>;
+}
+
+function VideoFilterSettingsForm<T extends VideoFilter>({
+  initialValues,
+  optionFilterConfig,
+  onSave,
+}: Props<T>) {
+  const createDefaultValues = (data?: VideoFilter): VideoFilter => {
+    return data ? { ...data } : ({} as VideoFilter);
+  };
+
+  const defaultValues = createDefaultValues(initialValues);
+
+  const _onSave = async (data: VideoFilter) => {
+    await onSave(data);
+  };
+
+  const {
+    register,
+    control,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<VideoFilter>({
+    defaultValues: defaultValues,
+  });
+
+  const optionFilterValues: { name: Path<T>; filter: Filter }[] = [
+    { name: "params.mediaFilter", filter: optionFilterConfig.mediaFilter },
+    { name: "params.qualityFilter", filter: optionFilterConfig.qualityFilter },
+    { name: "params.priceFilter", filter: optionFilterConfig.priceFilter },
+    { name: "params.releaseFilter", filter: optionFilterConfig.releaseFilter },
+    { name: "params.sortFilter", filter: optionFilterConfig.sortFilter },
+  ]
+    .filter((it) => it.filter !== undefined)
+    .map((it) => ({
+      name: it.name as Path<T>,
+      filter: it.filter as Filter,
+    }));
+
+  const onReset = () => {
+    reset(defaultValues);
+  };
+
+  return (
+    <>
+      <FormLayout
+        onSave={handleSubmit(_onSave)}
+        onReset={onReset}
+        child={
+          <>
+            <div>
+              <span>フィルター名</span>
+              <FormInput
+                type="text"
+                placeholder="お気に入り"
+                name="name"
+                register={register}
+                error={errors.name}
+                requiredMessage="フィルター名は必須です"
+              />
+            </div>
+            <div>
+              <span>フィルター条件</span>
+              <div className="flex gap-1">
+                {optionFilterValues.map((value) => (
+                  <FilterOptions
+                    key={value.filter.label}
+                    filter={value.filter}
+                    name={value.name}
+                    control={control}
+                  />
+                ))}
+              </div>
+              <div>
+                <span>キーワード</span>
+                <FormTag
+                  placeholder="+巨乳 -ベスト"
+                  name="params.keyword"
+                  control={control}
+                  errors={errors.params?.keyword}
+                />
+              </div>
+            </div>
+          </>
+        }
+      />
+    </>
+  );
+}
+
+export default VideoFilterSettingsForm;

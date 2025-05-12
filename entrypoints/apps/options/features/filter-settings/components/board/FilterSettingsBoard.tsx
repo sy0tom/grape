@@ -1,39 +1,41 @@
 import { Button } from "#/components/ui/button";
 import { VideoFilterSettingsService } from "#/services";
-import { AmateurFilter, AnimeFilter, AvFilter, VideoFilter } from "#/types";
+import {
+  amateurOptionFilterConfig,
+  animeOptionFilterConfig,
+  avOptionFilterConfig,
+  VideoFilter,
+} from "#/types";
 import { ReactNode } from "react";
 import VideoFilterSettingsDialog from "../dialog/VideoFilterSettingsDialog";
-import AmateurFilterSettingsForm from "../form/AmateurFilterSettingsForm";
-import AnimeFilterSettingsForm from "../form/AnimeFilterSettingsForm";
-import AvFilterSettingsForm from "../form/AvFilterSettingsForm";
+import VideoFilterSettingsForm from "../form/VideoFilterSettingsForm";
 import FilterItem from "./FilterItem";
 
-type FilterFormType =
-  | typeof AvFilterSettingsForm
-  | typeof AmateurFilterSettingsForm
-  | typeof AnimeFilterSettingsForm;
+type FilterFormType = "av" | "amateur" | "anime";
 
-interface Props<T extends VideoFilter> {
+interface Props<> {
   title: string;
-  initialValues: T[];
-  videoFilterService: VideoFilterSettingsService<T>;
+  initialValues: VideoFilter[];
+  videoFilterSettingsService: VideoFilterSettingsService;
   formType: FilterFormType;
 }
 
-function FilterSettingsBoard<T extends VideoFilter>({
+function FilterSettingsBoard({
   title,
   initialValues,
-  videoFilterService,
+  videoFilterSettingsService,
   formType,
-}: Props<T>) {
-  const [filters, setFilters] = useState<T[]>(initialValues);
+}: Props) {
+  const [filters, setFilters] = useState<VideoFilter[]>(initialValues);
 
-  const [selectedFilter, setSelectedFilter] = useState<T | undefined>();
+  const [selectedFilter, setSelectedFilter] = useState<
+    VideoFilter | undefined
+  >();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const onOpenDialog = (filter?: T) => {
-    setSelectedFilter(filter ?? ({} as T));
+  const onOpenDialog = (filter?: VideoFilter) => {
+    setSelectedFilter(filter ?? ({} as VideoFilter));
     setIsDialogOpen(true);
   };
 
@@ -41,41 +43,44 @@ function FilterSettingsBoard<T extends VideoFilter>({
     setIsDialogOpen(false);
   };
 
-  const onSave = async (data: T) => {
+  const onSave = async (data: VideoFilter) => {
     console.log(`${JSON.stringify(data)}`);
-    await videoFilterService.save(data);
-    const newData = await videoFilterService.getAll();
+    await videoFilterSettingsService.save(data);
+    const newData = await videoFilterSettingsService.getAll();
     setFilters(newData);
     setIsDialogOpen(false);
   };
 
   const onDelete = async (id: string) => {
-    await videoFilterService.delete(id);
-    const newData = await videoFilterService.getAll();
+    await videoFilterSettingsService.delete(id);
+    const newData = await videoFilterSettingsService.getAll();
     setFilters(newData);
   };
 
   const getForm = (formType: FilterFormType): ReactNode => {
     switch (formType) {
-      case AvFilterSettingsForm:
+      case "av":
         return (
-          <AvFilterSettingsForm
-            initialValues={selectedFilter as AvFilter}
-            onSave={(data) => onSave(data as T)}
+          <VideoFilterSettingsForm
+            initialValues={selectedFilter}
+            optionFilterConfig={avOptionFilterConfig}
+            onSave={(data) => onSave(data)}
           />
         );
-      case AmateurFilterSettingsForm:
+      case "amateur":
         return (
-          <AmateurFilterSettingsForm
-            initialValues={selectedFilter as AmateurFilter}
-            onSave={(data) => onSave(data as T)}
+          <VideoFilterSettingsForm
+            initialValues={selectedFilter}
+            optionFilterConfig={amateurOptionFilterConfig}
+            onSave={(data) => onSave(data)}
           />
         );
-      case AnimeFilterSettingsForm:
+      case "anime":
         return (
-          <AnimeFilterSettingsForm
-            initialValues={selectedFilter as AnimeFilter}
-            onSave={(data) => onSave(data as T)}
+          <VideoFilterSettingsForm
+            initialValues={selectedFilter}
+            optionFilterConfig={animeOptionFilterConfig}
+            onSave={(data) => onSave(data)}
           />
         );
     }
