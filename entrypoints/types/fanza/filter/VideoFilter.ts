@@ -7,7 +7,7 @@ export type VideoFilter = {
     priceFilter?: Option[];
     releaseFilter?: Option[];
     sortFilter?: Option[];
-    keyword?: string;
+    keywords?: string[];
   };
 };
 
@@ -21,22 +21,18 @@ export type OptionFilterConfig = {
 
 export type MediaTypeFilter = Filter & {
   label: "2D/VR";
-  options: Option[];
 };
 
 export type QualityFilter = Filter & {
   label: "配信形式";
-  options: Option[];
 };
 
 export type PriceFilter = Filter & {
   label: "価格";
-  options: Option[];
 };
 
 export type ReleaseFilter = Filter & {
   label: "配信開始日";
-  options: Option[];
 };
 
 export type SortFilter = Filter & {
@@ -50,5 +46,6 @@ export type Filter = {
 
 export type Option = {
   label: string;
+  key: string;
   value: string;
 };

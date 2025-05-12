@@ -87,9 +87,9 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
                 <span>キーワード</span>
                 <FormTag
                   placeholder="+巨乳 -ベスト"
-                  name="params.keyword"
+                  name="params.keywords"
                   control={control}
-                  errors={errors.params?.keyword}
+                  errors={errors.params?.keywords}
                 />
               </div>
             </div>
