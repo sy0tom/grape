@@ -16,14 +16,10 @@ function VideoFilterArea({ type }: Props) {
   );
 
   const overrideUrl = (filter: VideoFilter) => {
-    //const url = window.location.href;
-    // URLのパラメータを置き換える
-    const newUrl =
-      "https://video.dmm.co.jp/" + type.toLowerCase() + "/" + filter.id;
-    // URLを更新する
+    const newUrl = service?.convertUrl(window.location.href, filter);
     window.history.replaceState(null, "", newUrl);
-    // ページをリロードする
-    window.location.reload();
+    console.log(`newUrl: ${newUrl}`);
+    //window.location.reload();
   };
 
   if (!data && !error) {

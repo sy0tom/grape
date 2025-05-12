@@ -4,17 +4,15 @@ import { createAnimeFilterSettingsRepository } from "#/lib/repositories/storage/
 import { createAvFilterSettingsRepository } from "#/lib/repositories/storage/AvFilterSettingsRepositoryImpl";
 import { createLoadingWaitTimeSettingsRepository } from "#/lib/repositories/storage/LoadingWaitTimeSettingsRepositoryImpl";
 import {
+  createLoadingWaitTimeSettingsService,
+  createUserFilterSettingsService,
+  LoadingWaitTimeSettingsService,
+  UserFilterSettingsService,
+} from "#/services";
+import {
   BackgroundService,
   createBackgroundService,
 } from "#/services/BackgroundService";
-import {
-  createLoadingWaitTimeSettingsService,
-  LoadingWaitTimeSettingsService,
-} from "#/services/LoadingWaitTimeSettingsService";
-import {
-  createUserFilterSettingsService,
-  UserFilterSettingsService,
-} from "#/services/UserFilterSettingsService";
 import { createContext, ReactNode } from "react";
 
 type AppContext = {

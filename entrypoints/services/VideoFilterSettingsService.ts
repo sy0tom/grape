@@ -22,6 +22,6 @@ export function createVideoFilterSettingsService(
   };
 }
 
-export type AmateurFilterSettingsService = ReturnType<
+export type VideoFilterSettingsService = ReturnType<
   typeof createVideoFilterSettingsService
 >;

@@ -37,11 +37,11 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
   });
 
   const optionFilterValues: { name: Path<T>; filter: Filter }[] = [
-    { name: "params.mediaFilter", filter: optionFilterConfig.mediaFilter },
-    { name: "params.qualityFilter", filter: optionFilterConfig.qualityFilter },
-    { name: "params.priceFilter", filter: optionFilterConfig.priceFilter },
-    { name: "params.releaseFilter", filter: optionFilterConfig.releaseFilter },
-    { name: "params.sortFilter", filter: optionFilterConfig.sortFilter },
+    { name: "params.mediaOption", filter: optionFilterConfig.mediaFilter },
+    { name: "params.qualityOption", filter: optionFilterConfig.qualityFilter },
+    { name: "params.priceOption", filter: optionFilterConfig.priceFilter },
+    { name: "params.releaseOption", filter: optionFilterConfig.releaseFilter },
+    { name: "params.sortOption", filter: optionFilterConfig.sortFilter },
   ]
     .filter((it) => it.filter !== undefined)
     .map((it) => ({

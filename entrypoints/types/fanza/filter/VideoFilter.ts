@@ -2,11 +2,11 @@ export type VideoFilter = {
   id: string;
   name: string;
   params: {
-    mediaFilter?: Option[];
-    qualityFilter?: Option[];
-    priceFilter?: Option[];
-    releaseFilter?: Option[];
-    sortFilter?: Option[];
+    mediaOption?: Option;
+    qualityOption?: Option;
+    priceOption?: Option;
+    releaseOption?: Option;
+    sortOption?: Option;
     keywords?: string[];
   };
 };
@@ -46,6 +46,5 @@ export type Filter = {
 
 export type Option = {
   label: string;
-  key: string;
   value: string;
 };

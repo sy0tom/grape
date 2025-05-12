@@ -4,8 +4,12 @@ import { FilterSettingsBoard } from "../features/filter-settings";
 
 function FilterSettingsPage() {
   const filterService = useContext(AppContext)?.userFilterSettingsService;
+  if (!filterService) {
+    return <span>Service not available</span>;
+  }
+
   const { data, error } = useSWR("filterService.getInitializeData", () =>
-    filterService?.getInitializeData(),
+    filterService.getInitializeData(),
   );
 
   if (!data && !error) {
@@ -28,19 +32,19 @@ function FilterSettingsPage() {
         <FilterSettingsBoard
           title="ビデオ"
           initialValues={data.avFilters!}
-          videoFilterSettingsService={filterService?.getAvService()}
+          videoFilterSettingsService={filterService.getAvService()}
           formType="av"
         />
         <FilterSettingsBoard
           title="素人"
           initialValues={data.amateurFilters!}
-          videoFilterSettingsService={filterService?.getAmateurService()}
+          videoFilterSettingsService={filterService.getAmateurService()}
           formType="amateur"
         />
         <FilterSettingsBoard
           title="アニメ"
           initialValues={data.animeFilters}
-          videoFilterSettingsService={filterService?.getAnimeService()}
+          videoFilterSettingsService={filterService.getAnimeService()}
           formType="anime"
         />
       </div>
