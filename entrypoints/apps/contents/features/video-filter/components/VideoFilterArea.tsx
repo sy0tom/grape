@@ -16,10 +16,13 @@ function VideoFilterArea({ type }: Props) {
   );
 
   const overrideUrl = (filter: VideoFilter) => {
-    const newUrl = service?.convertUrl(window.location.href, filter);
-    window.history.replaceState(null, "", newUrl);
+    console.log(`filter: ${JSON.stringify(filter)}`);
+    const url = window.location.href;
+    console.log(`url: ${url}`);
+    const newUrl = service?.convertUrl(url, filter);
     console.log(`newUrl: ${newUrl}`);
-    //window.location.reload();
+    window.history.replaceState(null, "", newUrl);
+    window.location.reload();
   };
 
   if (!data && !error) {

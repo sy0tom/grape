@@ -4,7 +4,7 @@ import {
 } from "#/repositories";
 import { VideoFilterSettingsService } from "#/services";
 import { UserFilterSettings } from "#/types";
-import { Option, VideoFilter } from "#/types/fanza";
+import { VideoFilter } from "#/types/fanza";
 import { AvFilterSettingsRepository } from "../repositories/AvFilterSettingsRepository";
 import { createVideoFilterSettingsService } from "./VideoFilterSettingsService";
 
@@ -37,18 +37,11 @@ export function createUserFilterSettingsService(
     };
   };
 
-  const addFilterParams = (
-    newParams: string,
-    keyValue: string,
-    option: Option | undefined,
-  ): string => {
-    if (option) {
-      if (option.value === " ") {
-        return newParams;
-      }
-      return `${newParams}${option.value}&`;
+  const addSavedOptions = (value: string | undefined): string => {
+    if (value && value !== " ") {
+      return `${value}&`;
     }
-    return `${newParams}${keyValue}&`;
+    return "";
   };
 
   return {
@@ -57,59 +50,43 @@ export function createUserFilterSettingsService(
     getAmateurService: (): VideoFilterSettingsService => amateurService,
     getAnimeService: (): VideoFilterSettingsService => animeService,
     convertUrl: (url: string, filter: VideoFilter): string => {
-      const urlData = url.split("?");
+      const [baseUrl, paramString] = url.split("?");
       let newParams = "";
-      for (const param of urlData[1].split("&")) {
-        console.log(`param=${param}, newParams=${newParams}`);
-        if (param.startsWith("mediaType") || filter.params.mediaOption) {
-          newParams = addFilterParams(
-            newParams,
-            param,
-            filter.params.mediaOption,
-          );
-        } else if (
-          param.startsWith("max_quality") ||
-          filter.params.qualityOption
+      newParams += addSavedOptions(filter.params.mediaOption);
+      newParams += addSavedOptions(filter.params.qualityOption);
+      newParams += addSavedOptions(filter.params.priceOption);
+      newParams += addSavedOptions(filter.params.releaseOption);
+      newParams += addSavedOptions(filter.params.sortOption);
+
+      let keywords = [...(filter.params.keywords ?? [])];
+
+      const params = paramString.split("&");
+      for (const param of params) {
+        if (
+          !param.startsWith("media_type") &&
+          !param.startsWith("max_quality") &&
+          !param.startsWith("price_min") &&
+          !param.startsWith("price_max") &&
+          !param.startsWith("release") &&
+          !param.startsWith("sort") &&
+          !param.startsWith("key")
         ) {
-          newParams = addFilterParams(
-            newParams,
-            param,
-            filter.params.qualityOption,
-          );
-        } else if (
-          param.startsWith("price_min") ||
-          param.startsWith("price_max") ||
-          filter.params.priceOption
-        ) {
-          newParams = addFilterParams(
-            newParams,
-            param,
-            filter.params.priceOption,
-          );
-        } else if (param.startsWith("release")) {
-          newParams = addFilterParams(
-            newParams,
-            param,
-            filter.params.releaseOption,
-          );
-        } else if (param.startsWith("sort")) {
-          newParams = addFilterParams(
-            newParams,
-            param,
-            filter.params.sortOption,
-          );
+          newParams += `${param}&`;
         } else if (param.startsWith("key")) {
-          newParams = `${newParams}${Array.from(
-            new Set([
-              ...param.split("=")[1].split(" "),
-              ...(filter.params.keywords ?? []),
-            ]),
-          ).join(" ")}&`;
-        } else {
-          newParams = `${newParams}${param}&`;
+          keywords = [
+            ...keywords,
+            ...decodeURI(param.split("=")[1]).split(" "),
+          ];
         }
+        console.log(`newParams=${newParams}`);
       }
-      return `${urlData[0]}?${newParams}`;
+
+      if (keywords.length > 0) {
+        newParams += encodeURI(
+          `key=${Array.from(new Set([...keywords])).join(" ")}&`,
+        );
+      }
+      return `${baseUrl}?${newParams.slice(0, -1)}`;
     },
   };
 }

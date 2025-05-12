@@ -2,11 +2,11 @@ export type VideoFilter = {
   id: string;
   name: string;
   params: {
-    mediaOption?: Option;
-    qualityOption?: Option;
-    priceOption?: Option;
-    releaseOption?: Option;
-    sortOption?: Option;
+    mediaOption?: string;
+    qualityOption?: string;
+    priceOption?: string;
+    releaseOption?: string;
+    sortOption?: string;
     keywords?: string[];
   };
 };
