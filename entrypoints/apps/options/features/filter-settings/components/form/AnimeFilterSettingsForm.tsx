@@ -68,9 +68,9 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
                   },
                 ]}
                 placeholder="配信形式"
-                name={`quality`}
+                name={`params.quality`}
                 control={control}
-                error={errors.quality}
+                error={errors.params?.quality}
               />
               <FormSelect
                 options={[
@@ -83,9 +83,9 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
                   },
                 ]}
                 placeholder="価格"
-                name={`price`}
+                name={`params.price`}
                 control={control}
-                error={errors.price}
+                error={errors.params?.price}
               />
               <FormSelect
                 options={[
@@ -98,18 +98,18 @@ function AnimeFilterSettingsForm({ initialValues, onSave }: Props) {
                   },
                 ]}
                 placeholder="並び替え"
-                name={`sort`}
+                name={`params.sort`}
                 control={control}
-                error={errors.sort}
+                error={errors.params?.sort}
               />
             </div>
             <div>
               <span>キーワード</span>
               <FormTag
                 placeholder="巨乳 -BEST"
-                name="keywords"
+                name="params.keyword"
                 control={control}
-                errors={errors.keywords}
+                errors={errors.params?.keyword}
               />
             </div>
           </div>

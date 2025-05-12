@@ -1,4 +1,4 @@
-import { FormInput, FormSelect } from "#/components/form-field";
+import { FormInput, FormSelect, FormTag } from "#/components/form-field";
 import { AmateurFilter, AmateurFilterConfig } from "#/types/fanza";
 import { useForm } from "react-hook-form";
 import FormLayout from "./FormLayout";
@@ -66,9 +66,9 @@ function AmateurFilterSettingsForm({ initialValues, onSave }: Props) {
                     },
                   ]}
                   placeholder="配信形式"
-                  name={`quality`}
+                  name={`params.quality`}
                   control={control}
-                  error={errors.quality}
+                  error={errors.params?.quality}
                 />
                 <FormSelect
                   options={[
@@ -83,9 +83,9 @@ function AmateurFilterSettingsForm({ initialValues, onSave }: Props) {
                     },
                   ]}
                   placeholder="価格"
-                  name={`price`}
+                  name={`params.price`}
                   control={control}
-                  error={errors.price}
+                  error={errors.params?.price}
                 />
                 <FormSelect
                   options={[
@@ -100,18 +100,18 @@ function AmateurFilterSettingsForm({ initialValues, onSave }: Props) {
                     },
                   ]}
                   placeholder="並び替え"
-                  name={`sort`}
+                  name={`params.sort`}
                   control={control}
-                  error={errors.sort}
+                  error={errors.params?.sort}
                 />
               </div>
               <div>
                 <span>キーワード</span>
-                <FormInput
-                  type="text"
+                <FormTag
                   placeholder="+巨乳 -ベスト -BEST"
-                  name="keywords"
-                  register={register}
+                  name="params.keyword"
+                  control={control}
+                  errors={errors.params?.keyword}
                 />
               </div>
             </div>
