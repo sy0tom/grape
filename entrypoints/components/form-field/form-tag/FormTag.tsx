@@ -37,7 +37,6 @@ function FormTag<T extends FieldValues>({
             control={control}
             render={({ field }) => (
               <div className="border rounded-md p-2 w-full focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]">
-                {/* TODO: Inputタグのキーボード操作の挙動がおかしいので修正する */}
                 {/* TODO: タグを選択されたときにInputタグの末尾にフォーカスを当てる */}
                 {/* TODO: 子要素に選択されたときに強調させる */}
                 <TagInput

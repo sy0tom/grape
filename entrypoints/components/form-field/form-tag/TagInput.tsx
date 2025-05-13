@@ -1,5 +1,4 @@
 import { ChangeEvent } from "react";
-import { v4 as uuid } from "uuid";
 import Tag from "./Tag";
 
 interface Props {
@@ -8,9 +7,8 @@ interface Props {
   onChange: (value: string[]) => void;
 }
 
-const elementIdPrefix = uuid();
-
 function TagInput({ initialValues, placeholder, onChange }: Props) {
+  const tagRootRef = useRef<HTMLDivElement>(null);
   const minFocusIndex = -1;
   const [tags, setTags] = useState<string[]>(initialValues ?? []);
   const [inputValue, setInputValue] = useState("");
@@ -20,7 +18,6 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   const getSpanRefIndex = (index: number) => index + 1;
 
   useEffect(() => {
-    console.log(`focus changed ${focusIndex}`);
     setInputValue("");
   }, [focusIndex]);
 
@@ -183,10 +180,10 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   };
 
   const moveFocus = (nextIndex: number) => {
-    const elementId = `${elementIdPrefix}-tag-input-${nextIndex}`;
-    const nextElement = document.getElementById(elementId);
+    const elementId = `tag-input-${nextIndex}`;
+    const nextElement = tagRootRef?.current?.querySelector(`#${elementId}`);
     if (nextElement) {
-      nextElement?.focus();
+      (nextElement as HTMLElement).focus();
       return;
     }
     console.log(`element is not found. ${elementId}`);
@@ -200,7 +197,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
     return (
       <div className="relative">
         <input
-          id={`${elementIdPrefix}-tag-input-${index}`}
+          id={`tag-input-${index}`}
           type="text"
           value={getValue()}
           onFocus={() => handleFocus(index)}
@@ -222,7 +219,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   };
 
   return (
-    <div className="flex items-center">
+    <div ref={tagRootRef} className="flex items-center">
       {renderInput(minFocusIndex)}
       {tags.length ? (
         tags.map((tag, index) => (
