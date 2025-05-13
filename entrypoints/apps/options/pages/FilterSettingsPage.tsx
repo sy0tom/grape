@@ -1,6 +1,7 @@
 import { AppContext } from "#/context/AppContextProvider";
 import useSWR from "swr";
-import { FilterSettingsBoard } from "../features/filter-settings";
+import { FilterSettingsBoard } from "../features/user-video-filter-settings";
+import ActivationSettingsBoard from "../features/user-video-filter-settings/components/activation-settings/ActivationSettingsBoard";
 
 function FilterSettingsPage() {
   const context = useContext(AppContext);
@@ -32,15 +33,19 @@ function FilterSettingsPage() {
             Configure your filter settings here.
           </div>
         </div>
+        <ActivationSettingsBoard
+          isActive={data.isActive}
+          activationService={context.featureActivationService}
+        />
         <FilterSettingsBoard
           title="ビデオ"
-          initialValues={data.avFilters!}
+          initialValues={data.avFilters}
           videoFilterSettingsService={context.avFilterSettingsService}
           formType="av"
         />
         <FilterSettingsBoard
           title="素人"
-          initialValues={data.amateurFilters!}
+          initialValues={data.amateurFilters}
           videoFilterSettingsService={context.amateurFilterSettingsService}
           formType="amateur"
         />

@@ -8,8 +8,8 @@ export {
 } from "./video-filter/VideoFilterConfig";
 
 export {
+  UserVideoFilterSettings,
   VideoFilter,
-  VideoFilterSettings,
 } from "./video-filter/VideoFilterSettings";
 
 export { LoadingWaitTimeSettings } from "./wait-time/LoadingWaitTimeSettings";

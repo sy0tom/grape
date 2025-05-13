@@ -26,7 +26,7 @@ function VideoFilterArea({ type }: Props) {
   };
 
   if (!data && !error) {
-    return <div>Error loading data</div>;
+    return <div>loading...</div>;
   }
 
   if (error) {

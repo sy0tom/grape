@@ -1,4 +1,4 @@
-export type VideoFilterSettings = {
+export type UserVideoFilterSettings = {
   isActive: boolean;
   avFilters: VideoFilter[];
   amateurFilters: VideoFilter[];

@@ -1,4 +1,4 @@
-import { VideoFilter, VideoFilterSettings } from "#/types";
+import { UserVideoFilterSettings, VideoFilter } from "#/types";
 import { FeatureActivationService } from "../feature-activation/FeatureActivationService";
 import { VideoFilterSettingsService } from "./VideoFilterSettingsService";
 
@@ -16,7 +16,7 @@ export function createUserVideoFilterSettingsService(
   };
 
   return {
-    get: async (): Promise<VideoFilterSettings> => {
+    get: async (): Promise<UserVideoFilterSettings> => {
       const [featureActivation, avFilters, amateurFilters, animeFilters] =
         await Promise.all([
           featureActivationService.get(),

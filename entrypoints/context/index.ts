@@ -1,0 +1,1 @@
+export { featureActivateService } from "./ScriptContext";

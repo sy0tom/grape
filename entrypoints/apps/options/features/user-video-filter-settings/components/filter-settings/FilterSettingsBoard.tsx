@@ -7,13 +7,13 @@ import {
   VideoFilter,
 } from "#/types";
 import { ReactNode } from "react";
-import VideoFilterSettingsDialog from "../dialog/VideoFilterSettingsDialog";
-import VideoFilterSettingsForm from "../form/VideoFilterSettingsForm";
 import FilterItem from "./FilterItem";
+import VideoFilterSettingsDialog from "./VideoFilterSettingsDialog";
+import VideoFilterSettingsForm from "./form/VideoFilterSettingsForm";
 
 type FilterFormType = "av" | "amateur" | "anime";
 
-interface Props<> {
+interface Props {
   title: string;
   initialValues: VideoFilter[];
   videoFilterSettingsService: VideoFilterSettingsService;

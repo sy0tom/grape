@@ -10,20 +10,22 @@ import Check from "./Check";
 interface Props<T extends FieldValues> {
   label?: string;
   type: "checkbox" | "toggle";
+  checked: boolean;
   name: Path<T>;
   register: UseFormRegister<T>;
   error?: FieldError;
   className?: string;
 }
 
-function FormCheckbox({
+function FormCheckbox<T extends FieldValues>({
   label,
   type,
+  checked,
   name,
   register,
   error,
   className,
-}: Props<FieldValues>) {
+}: Props<T>) {
   return (
     <FormFieldLayout
       label={label}
@@ -31,6 +33,7 @@ function FormCheckbox({
       child={
         <Check
           type={type}
+          checked={checked}
           name={name}
           register={register}
           className={className}
