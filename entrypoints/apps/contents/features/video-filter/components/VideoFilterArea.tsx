@@ -1,6 +1,7 @@
 import { Button } from "#/components/ui/button";
 import { AppContext } from "#/context/AppContextProvider";
 import { VideoFilter } from "#/types";
+import InfoIcon from "@mui/icons-material/Info";
 import useSWR from "swr";
 
 export type FilterTye = "AvFilter" | "AmateurFilter" | "AnimeFilter";
@@ -33,6 +34,21 @@ function VideoFilterArea({ type }: Props) {
     return <div>Error loading data</div>;
   }
 
+  const get = (label: string, option: string | undefined): string => {
+    return option ? `${label}: ${option}\n` : "";
+  };
+
+  const getInfo = (filter: VideoFilter): string => {
+    return (
+      get("2D/VR", filter.params?.mediaOption) +
+      get("配信形式", filter.params?.qualityOption) +
+      get("価格", filter.params?.priceOption) +
+      get("配信開始日", filter.params?.releaseOption) +
+      get("並び替え", filter.params?.sortOption) +
+      get("キーワード", filter.params?.keywords?.join(","))
+    ).slice(0, -1);
+  };
+
   const renderButtons = (filters: VideoFilter[] | undefined) => {
     return (
       <div className="flex items-center gap-1">
@@ -43,6 +59,9 @@ function VideoFilterArea({ type }: Props) {
             onClick={() => overrideUrl(filter)}
           >
             {filter.name}
+            <button title={getInfo(filter)} disabled={false}>
+              <InfoIcon />
+            </button>
           </Button>
         ))}
       </div>
