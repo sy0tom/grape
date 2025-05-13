@@ -1,11 +1,9 @@
-import { AppContext } from "#/context/AppContextProvider";
+import { context } from "#/context";
 import useSWR from "swr";
 import { FilterSettingsBoard } from "../features/user-video-filter-settings";
 import ActivationSettingsBoard from "../features/user-video-filter-settings/components/activation-settings/ActivationSettingsBoard";
 
 function FilterSettingsPage() {
-  const context = useContext(AppContext);
-
   if (!context) {
     return <span>Service not available</span>;
   }

@@ -1,4 +1,4 @@
-import { featureActivateService } from "#/context";
+import { context } from "#/context";
 import { injectSavedFiltersMain } from "./contents/features/video-filter/main";
 
 export default defineContentScript({
@@ -16,7 +16,7 @@ export default defineContentScript({
 });
 
 async function handleInjection(url: string) {
-  const featureActivate = await featureActivateService.get();
+  const featureActivate = await context.featureActivationService.get();
   if (featureActivate.videoFilter) {
     if (url.startsWith("https://video.dmm.co.jp/av/")) {
       injectSavedFiltersMain(url, "AvFilter");

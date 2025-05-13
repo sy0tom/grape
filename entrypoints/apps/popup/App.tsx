@@ -1,4 +1,3 @@
-import AppContextProvider from "#/context/AppContextProvider";
 import BuildIcon from "@mui/icons-material/Build";
 import { useState } from "react";
 import { TopPage } from "./pages";
@@ -15,35 +14,31 @@ function App() {
   };
 
   return (
-    <AppContextProvider
-      child={
-        <>
-          <header>
-            <div className="w-full h-12 bg-blue-950 flex items-center justify-center">
-              <div
-                onClick={() => onChangeMainContent(<TopPage />)}
-                className="flex items-center"
-              >
-                <span className="p-2 text-2xl font-sans font-bold text-white">
-                  Grape
-                </span>
-              </div>
-              <div className="p-2 flex justify-end flex-grow">
-                <button onClick={() => onClickOpenOptionsPage()}>
-                  <BuildIcon
-                    fontSize="medium"
-                    className="text-white hover:text-gray-300"
-                  />
-                </button>
-              </div>
-            </div>
-          </header>
-          <main>
-            <div className="p-2">{mainContent}</div>
-          </main>
-        </>
-      }
-    />
+    <>
+      <header>
+        <div className="w-full h-12 bg-blue-950 flex items-center justify-center">
+          <div
+            onClick={() => onChangeMainContent(<TopPage />)}
+            className="flex items-center"
+          >
+            <span className="p-2 text-2xl font-sans font-bold text-white">
+              Grape
+            </span>
+          </div>
+          <div className="p-2 flex justify-end flex-grow">
+            <button onClick={() => onClickOpenOptionsPage()}>
+              <BuildIcon
+                fontSize="medium"
+                className="text-white hover:text-gray-300"
+              />
+            </button>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div className="p-2">{mainContent}</div>
+      </main>
+    </>
   );
 }
 

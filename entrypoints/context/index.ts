@@ -1,1 +1,1 @@
-export { featureActivateService } from "./ScriptContext";
+export { context } from "./AppContext";

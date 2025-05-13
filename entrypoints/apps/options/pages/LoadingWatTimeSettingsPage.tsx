@@ -1,12 +1,10 @@
-import { AppContext } from "#/context/AppContextProvider";
+import { context } from "#/context";
 import useSWR from "swr";
 import { LoadingWaitTimeSettingsForm } from "../features/loading-wait-time-settings";
 
 function LoadingWatTimeSettingsPage() {
-  const service = useContext(AppContext);
-
   const { data, error } = useSWR("loadingWaitTimeSettingsService", () =>
-    service?.loadingWaitTimeSettingsService?.get(),
+    context.loadingWaitTimeSettingsService?.get(),
   );
 
   if (!data && !error) {

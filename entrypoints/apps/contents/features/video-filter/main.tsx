@@ -1,4 +1,3 @@
-import AppContextProvider from "#/context/AppContextProvider";
 import "#/styles/globals.css";
 import { createRoot, Root } from "react-dom/client";
 import VideoFilterArea, { FilterTye } from "./components/VideoFilterArea";
@@ -9,9 +8,7 @@ export async function injectSavedFiltersMain(
 ) {
   const root = await getSavedFiltersInjectRoot(filterType);
 
-  root.render(
-    <AppContextProvider child={<VideoFilterArea type={filterType} />} />,
-  );
+  root.render(<VideoFilterArea type={filterType} />);
 }
 
 async function getSavedFiltersInjectRoot(filterType: FilterTye): Promise<Root> {

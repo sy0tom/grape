@@ -1,5 +1,5 @@
 import { Button } from "#/components/ui/button";
-import { AppContext } from "#/context/AppContextProvider";
+import { context } from "#/context";
 import { VideoFilter } from "#/types";
 import InfoIcon from "@mui/icons-material/Info";
 import useSWR from "swr";
@@ -11,7 +11,7 @@ interface Props {
 }
 
 function VideoFilterArea({ type }: Props) {
-  const service = useContext(AppContext)?.userVideoFilterSettingsService;
+  const service = context.userVideoFilterSettingsService;
   const { data, error } = useSWR("service.getInitializeData", () =>
     service?.get(),
   );
