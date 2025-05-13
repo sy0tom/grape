@@ -23,19 +23,13 @@ async function getSavedFiltersInjectRoot(filterType: FilterTye): Promise<Root> {
     throw new Error("Element already exists");
   }
 
-  const retryMax = 5;
-  for (let i = 0; i < retryMax; i++) {
-    const element = document.querySelector(queryPath) as HTMLDivElement;
-    if (element) {
-      const rootElement = document.createElement("div");
-      rootElement.id = grapeFilterInjectFieldId;
-      element.prepend(rootElement);
-      return createRoot(rootElement);
-    }
-
-    // wait 1s before next retry
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  const element = document.querySelector(queryPath) as HTMLDivElement;
+  if (!element) {
+    throw new Error("Element not found after retries");
   }
 
-  throw new Error("Element not found after retries");
+  const rootElement = document.createElement("div");
+  rootElement.id = grapeFilterInjectFieldId;
+  element.prepend(rootElement);
+  return createRoot(rootElement);
 }
