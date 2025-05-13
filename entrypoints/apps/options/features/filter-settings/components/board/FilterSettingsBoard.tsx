@@ -1,9 +1,9 @@
 import { Button } from "#/components/ui/button";
-import { VideoFilterSettingsService } from "#/services";
+import { VideoFilterSettingsService } from "#/domain";
 import {
-  amateurOptionFilterConfig,
-  animeOptionFilterConfig,
-  avOptionFilterConfig,
+  amateurFilterConfig,
+  animeFilterConfig,
+  avFilterConfig,
   VideoFilter,
 } from "#/types";
 import { ReactNode } from "react";
@@ -69,7 +69,7 @@ function FilterSettingsBoard({
         return (
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
-            optionFilterConfig={avOptionFilterConfig}
+            optionFilterConfig={avFilterConfig}
             onSave={(data) => onSave(data)}
           />
         );
@@ -77,7 +77,7 @@ function FilterSettingsBoard({
         return (
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
-            optionFilterConfig={amateurOptionFilterConfig}
+            optionFilterConfig={amateurFilterConfig}
             onSave={(data) => onSave(data)}
           />
         );
@@ -85,7 +85,7 @@ function FilterSettingsBoard({
         return (
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
-            optionFilterConfig={animeOptionFilterConfig}
+            optionFilterConfig={animeFilterConfig}
             onSave={(data) => onSave(data)}
           />
         );

@@ -3,13 +3,16 @@ import useSWR from "swr";
 import { FilterSettingsBoard } from "../features/filter-settings";
 
 function FilterSettingsPage() {
-  const filterService = useContext(AppContext)?.userFilterSettingsService;
-  if (!filterService) {
+  const context = useContext(AppContext);
+
+  if (!context) {
     return <span>Service not available</span>;
   }
 
+  const userVideoFilterService = context.userVideoFilterSettingsService;
+
   const { data, error } = useSWR("filterService.getInitializeData", () =>
-    filterService.getInitializeData(),
+    userVideoFilterService.get(),
   );
 
   if (!data && !error) {
@@ -32,19 +35,19 @@ function FilterSettingsPage() {
         <FilterSettingsBoard
           title="ビデオ"
           initialValues={data.avFilters!}
-          videoFilterSettingsService={filterService.getAvService()}
+          videoFilterSettingsService={context.avFilterSettingsService}
           formType="av"
         />
         <FilterSettingsBoard
           title="素人"
           initialValues={data.amateurFilters!}
-          videoFilterSettingsService={filterService.getAmateurService()}
+          videoFilterSettingsService={context.amateurFilterSettingsService}
           formType="amateur"
         />
         <FilterSettingsBoard
           title="アニメ"
           initialValues={data.animeFilters}
-          videoFilterSettingsService={filterService.getAnimeService()}
+          videoFilterSettingsService={context.animeFilterSettingsService}
           formType="anime"
         />
       </div>

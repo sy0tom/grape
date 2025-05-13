@@ -1,6 +1,5 @@
 import { FormInput, FormTag } from "#/components/form-field";
-import { OptionFilterConfig, VideoFilter } from "#/types";
-import { Filter } from "#/types/fanza";
+import { Filter, OptionFilterConfig, VideoFilter } from "#/types";
 import { Path, useForm } from "react-hook-form";
 import FilterOptions from "./FilterOptions";
 import FormLayout from "./FormLayout";

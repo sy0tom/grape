@@ -1,7 +1,7 @@
-export interface TestMessageRequestDto {
+export type TestMessageRequestDto = {
   url: string;
-}
+};
 
-export interface TestMessageResponseDto {
+export type TestMessageResponseDto = {
   html: string;
-}
+};

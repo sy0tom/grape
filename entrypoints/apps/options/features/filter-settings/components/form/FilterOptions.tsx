@@ -1,5 +1,5 @@
 import { FormSelect } from "#/components/form-field";
-import { Filter } from "#/types/fanza";
+import { Filter } from "#/types";
 import { Control, FieldError, FieldValues, Path } from "react-hook-form";
 
 interface Props<T extends FieldValues> {

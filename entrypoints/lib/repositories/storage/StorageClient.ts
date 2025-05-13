@@ -2,7 +2,8 @@ export type Schema =
   | "local:AvFilter"
   | "local:AmateurFilter"
   | "local:AnimeFilter"
-  | "local:LoadingWaitTimeSettings";
+  | "local:LoadingWaitTimeSettings"
+  | "local:FeatureActivation";
 
 export function createLocalStorageClient<T>(schema: Schema) {
   return {

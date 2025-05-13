@@ -1,4 +1,4 @@
-import { LoadingWaitTimeSettingsRepository } from "#/repositories/LoadingWaitTimeSettingsRepository";
+import { LoadingWaitTimeSettingsRepository } from "#/domain/loading-wait-time/LoadingWaitTimeSettingsRepository";
 import { LoadingWaitTimeSettings } from "#/types";
 import { createLocalStorageClient } from "./StorageClient";
 

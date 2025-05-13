@@ -1,13 +1,13 @@
 import { BackgroundTask } from "#/types";
 
-export interface SendMessageRequestDto<T> {
+export type SendMessageRequestDto<T> = {
   taskName: BackgroundTask;
   data: T;
-}
+};
 
-export interface SendMessageResponseDto<T> {
+export type SendMessageResponseDto<T> = {
   taskName: BackgroundTask;
   isSuccess: boolean;
   data?: T;
   error?: string;
-}
+};

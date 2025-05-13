@@ -1,22 +1,32 @@
-import { createBackgroundRepository } from "#/lib/repositories/background/BackgroundRepositoryImpl";
-import { createAmateurFilterSettingsRepository } from "#/lib/repositories/storage/AmateurFilterSettingsRepositoryImpl";
-import { createAnimeFilterSettingsRepository } from "#/lib/repositories/storage/AnimeFilterSettingsRepositoryImpl";
-import { createAvFilterSettingsRepository } from "#/lib/repositories/storage/AvFilterSettingsRepositoryImpl";
-import { createLoadingWaitTimeSettingsRepository } from "#/lib/repositories/storage/LoadingWaitTimeSettingsRepositoryImpl";
-import {
-  createLoadingWaitTimeSettingsService,
-  createUserFilterSettingsService,
-  LoadingWaitTimeSettingsService,
-  UserFilterSettingsService,
-} from "#/services";
 import {
   BackgroundService,
   createBackgroundService,
-} from "#/services/BackgroundService";
+  createFeatureActivationService,
+  createLoadingWaitTimeSettingsService,
+  createUserVideoFilterSettingsService,
+  createVideoFilterSettingsService,
+  FeatureActivationService,
+  LoadingWaitTimeSettingsService,
+  UserVideoFilterSettingsService,
+  VideoFilterSettingsService,
+} from "#/domain";
+import {
+  createAmateurFilterSettingsRepository,
+  createAnimeFilterSettingsRepository,
+  createAvFilterSettingsRepository,
+  createBackgroundRepository,
+  createFeatureActivationRepository,
+  createLoadingWaitTimeSettingsRepository,
+} from "#/lib";
+
 import { createContext, ReactNode } from "react";
 
 type AppContext = {
-  userFilterSettingsService: UserFilterSettingsService;
+  featureActivationService: FeatureActivationService;
+  userVideoFilterSettingsService: UserVideoFilterSettingsService;
+  avFilterSettingsService: VideoFilterSettingsService;
+  amateurFilterSettingsService: VideoFilterSettingsService;
+  animeFilterSettingsService: VideoFilterSettingsService;
   loadingWaitTimeSettingsService: LoadingWaitTimeSettingsService;
   backgroundService: BackgroundService;
 };
@@ -28,14 +38,30 @@ interface Props {
 }
 
 function AppContextProvider({ child }: Props) {
-  const avFilterRepository = createAvFilterSettingsRepository();
-  const amateurFilterRepository = createAmateurFilterSettingsRepository();
-  const animeFilterRepository = createAnimeFilterSettingsRepository();
+  const featureActivationRepository = createFeatureActivationRepository();
+  const featureActivationService = createFeatureActivationService(
+    featureActivationRepository,
+  );
 
-  const userFilterSettingsService = createUserFilterSettingsService(
-    avFilterRepository,
+  const avFilterRepository = createAvFilterSettingsRepository();
+  const avFilterSettingsService =
+    createVideoFilterSettingsService(avFilterRepository);
+
+  const amateurFilterRepository = createAmateurFilterSettingsRepository();
+  const amateurFilterSettingsService = createVideoFilterSettingsService(
     amateurFilterRepository,
+  );
+
+  const animeFilterRepository = createAnimeFilterSettingsRepository();
+  const animeFilterSettingsService = createVideoFilterSettingsService(
     animeFilterRepository,
+  );
+
+  const userVideoFilterSettingsService = createUserVideoFilterSettingsService(
+    featureActivationService,
+    avFilterSettingsService,
+    amateurFilterSettingsService,
+    animeFilterSettingsService,
   );
 
   const waitTimeSettingsRepository = createLoadingWaitTimeSettingsRepository();
@@ -47,7 +73,11 @@ function AppContextProvider({ child }: Props) {
   const backgroundService = createBackgroundService(backgroundRepository);
 
   const services: AppContext = {
-    userFilterSettingsService,
+    featureActivationService,
+    userVideoFilterSettingsService,
+    avFilterSettingsService,
+    amateurFilterSettingsService,
+    animeFilterSettingsService,
     loadingWaitTimeSettingsService,
     backgroundService,
   };

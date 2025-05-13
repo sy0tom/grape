@@ -1,14 +1,14 @@
-import { AmateurFilterSettingsRepository } from "#/repositories/AmateurFilterSettingsRepository";
-import { AmateurFilter } from "#/types";
+import { VideoFilterSettingsRepository } from "#/domain/video-filter/VideoFilterSettingsRepository";
+import { VideoFilter } from "#/types";
 import { commonEntityRepository } from "./base/CommonEntityRepository";
 
-export function createAmateurFilterSettingsRepository(): AmateurFilterSettingsRepository {
+export function createAmateurFilterSettingsRepository(): VideoFilterSettingsRepository {
   const schema = "local:AmateurFilter" as const;
-  const repository = commonEntityRepository<AmateurFilter>(schema);
+  const repository = commonEntityRepository<VideoFilter>(schema);
 
   return {
-    getAll: async (): Promise<AmateurFilter[] | null> => repository.getAll(),
-    save: async (data: AmateurFilter): Promise<void> => repository.save(data),
+    getAll: async (): Promise<VideoFilter[] | null> => repository.getAll(),
+    save: async (model: VideoFilter): Promise<void> => repository.save(model),
     delete: async (id: string): Promise<void> => repository.delete(id),
   };
 }

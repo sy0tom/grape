@@ -1,11 +1,23 @@
 export { BackgroundTask } from "./BackgroundTask";
+
 export {
-  amateurOptionFilterConfig,
-  animeOptionFilterConfig,
-  avOptionFilterConfig,
-  type InjectWaitTime,
-  type LoadingWaitTimeSettings,
-  type OptionFilterConfig,
-  type UserFilterSettings,
-  type VideoFilter,
-} from "./fanza";
+  OptionFilterConfig,
+  amateurFilterConfig,
+  animeFilterConfig,
+  avFilterConfig,
+} from "./video-filter/VideoFilterConfig";
+
+export {
+  VideoFilter,
+  VideoFilterSettings,
+} from "./video-filter/VideoFilterSettings";
+
+export { LoadingWaitTimeSettings } from "./wait-time/LoadingWaitTimeSettings";
+
+export {
+  FeatureActivation,
+  FeatureActivationCommand,
+  FeatureActivationType,
+} from "./FeatureActivation";
+
+export { Filter } from "./video-filter/VideoFilterSettings";

@@ -1,5 +1,5 @@
-import { LoadingWaitTimeSettingsRepository } from "#/repositories/LoadingWaitTimeSettingsRepository";
 import { LoadingWaitTimeSettings } from "#/types";
+import { LoadingWaitTimeSettingsRepository } from "./LoadingWaitTimeSettingsRepository";
 
 export function createLoadingWaitTimeSettingsService(
   repository: LoadingWaitTimeSettingsRepository,

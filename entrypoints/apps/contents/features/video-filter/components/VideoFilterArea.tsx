@@ -10,9 +10,9 @@ interface Props {
 }
 
 function VideoFilterArea({ type }: Props) {
-  const service = useContext(AppContext)?.userFilterSettingsService;
+  const service = useContext(AppContext)?.userVideoFilterSettingsService;
   const { data, error } = useSWR("service.getInitializeData", () =>
-    service?.getInitializeData(),
+    service?.get(),
   );
 
   const overrideUrl = (filter: VideoFilter) => {

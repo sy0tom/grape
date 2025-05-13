@@ -1,4 +1,4 @@
-import { IBackgroundRepository } from "#/repositories/IBackgroundRepository";
+import { IBackgroundRepository } from "#/domain/background/IBackgroundRepository";
 import {
   SendMessageRequestDto,
   SendMessageResponseDto,
