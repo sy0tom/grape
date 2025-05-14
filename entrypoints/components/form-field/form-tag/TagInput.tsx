@@ -163,9 +163,9 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   const moveLeft = (index: number, next: number, shouldBeWait: boolean) => {
     const nextIndex = index - next;
     if (shouldBeWait) {
-      setTimeout(() => {
-        moveFocus(nextIndex);
-      }, 50);
+      // setTimeout(() => {
+      moveFocus(nextIndex);
+      // }, 50);
       return;
     }
     moveFocus(nextIndex);
