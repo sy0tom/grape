@@ -3,13 +3,13 @@ import { useState } from "react";
 import { TopPage } from "./pages";
 
 function App() {
-  const onClickOpenOptionsPage = () => {
+  const handleOpenOptionsPage = () => {
     chrome.runtime.openOptionsPage();
   };
 
   const [mainContent, setMainContent] = useState<React.ReactNode>(<TopPage />);
 
-  const onChangeMainContent = (content: React.ReactNode) => {
+  const handleChangeContent = (content: React.ReactNode) => {
     setMainContent(content);
   };
 
@@ -18,7 +18,7 @@ function App() {
       <header>
         <div className="w-full h-12 bg-blue-950 flex items-center justify-center">
           <div
-            onClick={() => onChangeMainContent(<TopPage />)}
+            onClick={() => handleChangeContent(<TopPage />)}
             className="flex items-center"
           >
             <span className="p-2 text-2xl font-sans font-bold text-white">
@@ -26,7 +26,7 @@ function App() {
             </span>
           </div>
           <div className="p-2 flex justify-end flex-grow">
-            <button onClick={() => onClickOpenOptionsPage()}>
+            <button onClick={() => handleOpenOptionsPage()}>
               <BuildIcon
                 fontSize="medium"
                 className="text-white hover:text-gray-300"
