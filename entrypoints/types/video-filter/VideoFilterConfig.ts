@@ -1,31 +1,12 @@
+import { UIconst } from "#/constants";
 import { Filter } from "./VideoFilterSettings";
 
 export type OptionFilterConfig = {
-  mediaFilter?: MediaTypeFilter;
-  qualityFilter: QualityFilter;
-  priceFilter: PriceFilter;
-  releaseFilter?: ReleaseFilter;
-  sortFilter: SortFilter;
-};
-
-export type MediaTypeFilter = Filter & {
-  label: "2D/VR";
-};
-
-export type QualityFilter = Filter & {
-  label: "配信形式";
-};
-
-export type PriceFilter = Filter & {
-  label: "価格";
-};
-
-export type ReleaseFilter = Filter & {
-  label: "配信開始日";
-};
-
-export type SortFilter = Filter & {
-  label: "ソート";
+  mediaFilter?: Filter;
+  qualityFilter: Filter;
+  priceFilter: Filter;
+  releaseFilter?: Filter;
+  sortFilter: Filter;
 };
 
 const optionAll = { label: "全て", value: " " } as const;
@@ -119,11 +100,11 @@ const sortOptionReleaseDate = {
 // AVフィルターの設定
 export const avFilterConfig: OptionFilterConfig = {
   mediaFilter: {
-    label: "2D/VR",
+    label: UIconst.label.mediaTypeFilter,
     options: [optionAll, mediaOption2D, mediaOptionVR],
   },
   qualityFilter: {
-    label: "配信形式",
+    label: UIconst.label.qualityFilter,
     options: [
       optionAll,
       qualityOptionStreaming,
@@ -134,7 +115,7 @@ export const avFilterConfig: OptionFilterConfig = {
     ],
   },
   priceFilter: {
-    label: "価格",
+    label: UIconst.label.priceFilter,
     options: [
       optionAll,
       priceOptionMax300,
@@ -145,7 +126,7 @@ export const avFilterConfig: OptionFilterConfig = {
     ],
   },
   releaseFilter: {
-    label: "配信開始日",
+    label: UIconst.label.releaseFilter,
     options: [
       optionAll,
       releaseOptionLatest,
@@ -154,7 +135,7 @@ export const avFilterConfig: OptionFilterConfig = {
     ],
   },
   sortFilter: {
-    label: "ソート",
+    label: UIconst.label.sortFilter,
     options: [
       sortOptionSuggest,
       sortOptionRanking,
@@ -171,7 +152,7 @@ export const avFilterConfig: OptionFilterConfig = {
 // 素人フィルターの設定
 export const amateurFilterConfig: OptionFilterConfig = {
   qualityFilter: {
-    label: "配信形式",
+    label: UIconst.label.qualityFilter,
     options: [
       optionAll,
       qualityOptionStreaming,
@@ -181,7 +162,7 @@ export const amateurFilterConfig: OptionFilterConfig = {
     ],
   },
   priceFilter: {
-    label: "価格",
+    label: UIconst.label.priceFilter,
     options: [
       optionAll,
       priceOptionMax300,
@@ -191,7 +172,7 @@ export const amateurFilterConfig: OptionFilterConfig = {
     ],
   },
   sortFilter: {
-    label: "ソート",
+    label: UIconst.label.sortFilter,
     options: [
       sortOptionRanking,
       sortOptionSalerankingAsc,
@@ -206,7 +187,7 @@ export const amateurFilterConfig: OptionFilterConfig = {
 // アニメフィルターの設定
 export const animeFilterConfig: OptionFilterConfig = {
   qualityFilter: {
-    label: "配信形式",
+    label: UIconst.label.qualityFilter,
     options: [
       optionAll,
       qualityOptionStreaming,
@@ -215,7 +196,7 @@ export const animeFilterConfig: OptionFilterConfig = {
     ],
   },
   priceFilter: {
-    label: "価格",
+    label: UIconst.label.priceFilter,
     options: [
       optionAll,
       priceOptionMax300,
@@ -226,7 +207,7 @@ export const animeFilterConfig: OptionFilterConfig = {
     ],
   },
   sortFilter: {
-    label: "ソート",
+    label: UIconst.label.sortFilter,
     options: [
       sortOptionRanking,
       sortOptionSalerankingAsc,
