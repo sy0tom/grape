@@ -224,7 +224,10 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   };
 
   return (
-    <div ref={tagRootRef} className="flex items-center">
+    <div
+      ref={tagRootRef}
+      className="flex items-center overflow-x-auto max-w-full"
+    >
       {renderInput(minFocusIndex)}
       {tags.length ? (
         tags.map((tag, index) => (
