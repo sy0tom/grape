@@ -18,10 +18,6 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   const getSpanRefIndex = (index: number) => index + 1;
 
   useEffect(() => {
-    setInputValue("");
-  }, [focusIndex]);
-
-  useEffect(() => {
     const span = spanRefs.current[getSpanRefIndex(focusIndex)];
     if (span) {
       const width = span.offsetWidth + 4;
@@ -31,6 +27,10 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
 
   const handleFocus = (index: number) => {
     setFocusIndex(index);
+  };
+
+  const handleOnBlur = () => {
+    resetInputValue();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -153,6 +153,10 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
   const updateTag = (nextTags: string[]) => {
     setTags(nextTags);
     onChange(nextTags);
+    resetInputValue();
+  };
+
+  const resetInputValue = () => {
     setInputValue("");
   };
 
@@ -201,8 +205,9 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
           type="text"
           value={getValue()}
           onFocus={() => handleFocus(index)}
+          onBlur={handleOnBlur}
           onChange={handleChange}
-          onKeyDown={(e) => handleKeyDown(e)}
+          onKeyDown={handleKeyDown}
           className="absolute top-0 left-0 bg-transparent outline-none"
           style={{ width: inputWidth }}
         />
