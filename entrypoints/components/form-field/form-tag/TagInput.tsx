@@ -1,4 +1,11 @@
-import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Tag from "./Tag";
 
 interface Props {
@@ -43,7 +50,11 @@ function TagInput({
     setInputValue(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleClick: React.MouseEventHandler<HTMLInputElement> = (e) => {
+    e.stopPropagation();
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const key = e.key;
     const value = inputValue.trim();
 
@@ -169,9 +180,7 @@ function TagInput({
   const moveLeft = (index: number, next: number, shouldBeWait: boolean) => {
     const nextIndex = index - next;
     if (shouldBeWait) {
-      // setTimeout(() => {
       moveFocus(nextIndex);
-      // }, 50);
       return;
     }
     moveFocus(nextIndex);
@@ -197,7 +206,6 @@ function TagInput({
       return;
     }
     console.log(`element is not found. ${elementId}`);
-    //setFocusIndex(nextIndex);
   };
 
   const renderInput = (index: number) => {
@@ -214,6 +222,7 @@ function TagInput({
           onBlur={handleOnBlur}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onClick={handleClick}
           className="absolute top-0 left-0 bg-transparent outline-none"
           style={{ width: inputWidth }}
           ref={index === tags.length - 1 ? lastInputRef : undefined}
