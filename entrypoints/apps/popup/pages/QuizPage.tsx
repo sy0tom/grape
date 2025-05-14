@@ -1,5 +1,6 @@
 import { Button } from "#/components/ui/button";
 import { context } from "#/context";
+import { ReactNode } from "react";
 
 function QuizPage() {
   const quizService = context.quizService;
@@ -10,13 +11,33 @@ function QuizPage() {
     setIsCollect(quiz.isGrowing === answer);
   };
 
-  const renderQuiz = () => {
+  const renderCompressImage = (url: string) => {
     return (
+      <div className="w-full h-72">
+        <img src={url} className="w-full h-full object-contain" />
+      </div>
+    );
+  };
+
+  const renderContent = (
+    title: string,
+    imageUrl: string,
+    footer: ReactNode,
+  ) => {
+    return (
+      <div className="p-2 flex flex-col justify-center items-center">
+        <div className="text-white text-xl font-bold">{title}</div>
+        {renderCompressImage(imageUrl)}
+        <div>{footer}</div>
+      </div>
+    );
+  };
+
+  const renderQuiz = () => {
+    return renderContent(
+      "生えてる？ 生えてない？",
+      quiz.quizImageUrl,
       <>
-        <div className="p-2 text-white text-xl font-bold">
-          生えてる？ 生えてない？
-        </div>
-        <img src={quiz.quizImageUrl} className="m-4" />
         <div className="p-2 flex items-center justify-center gap-2">
           <Button
             className="bg-red-500 hover:bg-red-400"
@@ -31,21 +52,25 @@ function QuizPage() {
             <span className="text-white">生えてる</span>
           </Button>
         </div>
-      </>
+      </>,
     );
+    // return (
+
+    // );
   };
 
   const renderAnswer = () => {
-    return (
-      <div className="p-2 text-white text-xl font-bold">
-        {isCollect ? "正解! " : "不正解... "}
-        <img src={quiz.quizAnswerUr} className="m-4" />
-      </div>
+    let title = isCollect ? "正解🎉 " : "残念... ";
+    title += quiz.isGrowing ? "生えてる" : "生えてない";
+    return renderContent(
+      title,
+      quiz.quizAnswerUr!,
+      <div className="text-white font-bold">作品情報</div>,
     );
   };
 
   return (
-    <div className="bg-black w-92 h-92">
+    <div className="bg-black w-96 h-96">
       {isCollect === undefined ? renderQuiz() : renderAnswer()}
     </div>
   );
