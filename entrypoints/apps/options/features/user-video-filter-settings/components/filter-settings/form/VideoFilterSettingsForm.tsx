@@ -1,5 +1,6 @@
 import { FormInput, FormTag } from "#/components/form-field";
 import { Filter, OptionFilterConfig, VideoFilter } from "#/types";
+import { ReactNode } from "react";
 import { Path, useForm } from "react-hook-form";
 import FilterOptions from "./FilterOptions";
 import FormLayout from "./FormLayout";
@@ -52,6 +53,15 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
     reset(defaultValues);
   };
 
+  const fieldRender = (title: string, content: ReactNode) => {
+    return (
+      <div className="p-1">
+        <span>{title}</span>
+        {content}
+      </div>
+    );
+  };
+
   return (
     <>
       <FormLayout
@@ -59,38 +69,40 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
         onReset={onReset}
         child={
           <>
-            <div>
-              <span>フィルター名</span>
-              <FormInput
-                type="text"
-                placeholder="お気に入り"
-                name="name"
-                register={register}
-                error={errors.name}
-                requiredMessage="フィルター名は必須です"
-              />
-            </div>
-            <div>
-              <span>フィルター条件</span>
-              <div className="flex gap-1">
-                {optionFilterValues.map((value) => (
-                  <FilterOptions
-                    key={value.filter.label}
-                    filter={value.filter}
-                    name={value.name}
-                    control={control}
-                  />
-                ))}
-              </div>
-              <div>
-                <span>キーワード</span>
+            <div className="p-2">
+              {fieldRender(
+                "フィルター名",
+                <FormInput
+                  type="text"
+                  placeholder="お気に入り"
+                  name="name"
+                  register={register}
+                  error={errors.name}
+                  requiredMessage="フィルター名は必須です"
+                />,
+              )}
+              {fieldRender(
+                "フィルター条件",
+                <div className="flex gap-1">
+                  {optionFilterValues.map((value) => (
+                    <FilterOptions
+                      key={value.filter.label}
+                      filter={value.filter}
+                      name={value.name}
+                      control={control}
+                    />
+                  ))}
+                </div>,
+              )}
+              {fieldRender(
+                "キーワード",
                 <FormTag
                   placeholder="+巨乳 -ベスト"
                   name="params.keywords"
                   control={control}
                   errors={errors.params?.keywords}
-                />
-              </div>
+                />,
+              )}
             </div>
           </>
         }
