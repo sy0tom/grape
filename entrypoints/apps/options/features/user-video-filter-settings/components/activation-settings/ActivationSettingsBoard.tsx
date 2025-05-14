@@ -6,7 +6,7 @@ interface Props {
   activationService: FeatureActivationService;
 }
 
-function ActivationSettingsBoard({ isActive, activationService }: Props) {
+function ActivationSettingsForm({ isActive, activationService }: Props) {
   const [checked, setChecked] = useState(isActive);
 
   const onSave = async (current: boolean) => {
@@ -20,12 +20,7 @@ function ActivationSettingsBoard({ isActive, activationService }: Props) {
     }
   };
 
-  return (
-    <div>
-      <div>フィルターの有効化</div>
-      <Switch checked={checked} onClick={() => onSave(checked)} />
-    </div>
-  );
+  return <Switch checked={checked} onClick={() => onSave(checked)} />;
 }
 
-export default ActivationSettingsBoard;
+export default ActivationSettingsForm;

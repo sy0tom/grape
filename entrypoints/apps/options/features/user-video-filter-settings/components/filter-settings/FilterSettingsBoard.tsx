@@ -8,7 +8,7 @@ import {
 } from "#/types";
 import { ReactNode } from "react";
 import FilterItem from "./FilterItem";
-import VideoFilterSettingsDialog from "./VideoFilterSettingsDialog";
+import VideoFilterSettingsDialog from "./dialog/VideoFilterSettingsDialog";
 import VideoFilterSettingsForm from "./form/VideoFilterSettingsForm";
 
 type FilterFormType = "av" | "amateur" | "anime";
@@ -34,7 +34,7 @@ function FilterSettingsBoard({
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const onOpenDialog = (filter?: VideoFilter) => {
+  const handleOpenDialog = (filter?: VideoFilter) => {
     setSelectedFilter(filter ?? ({} as VideoFilter));
     setIsDialogOpen(true);
   };
@@ -51,13 +51,13 @@ function FilterSettingsBoard({
     setIsDialogOpen(false);
   };
 
-  const onCopy = (data: VideoFilter) => {
+  const handleCopy = (data: VideoFilter) => {
     const newData = { ...data, id: "" } as VideoFilter;
     setSelectedFilter(newData);
     setIsDialogOpen(true);
   };
 
-  const onDelete = async (id: string) => {
+  const handleDelete = async (id: string) => {
     await videoFilterSettingsService.delete(id);
     const newData = await videoFilterSettingsService.getAll();
     setFilters(newData);
@@ -93,19 +93,16 @@ function FilterSettingsBoard({
   };
 
   return (
-    <>
-      <div>
-        <span>{title}</span>
-      </div>
-
+    <div className="p-2">
+      <div className="">{title}</div>
       {filters.length ? (
         filters.map((filter) => (
-          <div key={filter.id}>
+          <div key={filter.id} className="px-2 py-1">
             <FilterItem
               filter={filter}
-              onEdit={() => onOpenDialog(filter)}
-              onCopy={() => onCopy(filter)}
-              onDelete={() => onDelete(filter.id)}
+              onEdit={() => handleOpenDialog(filter)}
+              onCopy={() => handleCopy(filter)}
+              onDelete={() => handleDelete(filter.id)}
             />
           </div>
         ))
@@ -113,7 +110,7 @@ function FilterSettingsBoard({
         <span>フィルターはありません</span>
       )}
       <div>
-        <Button onClick={() => onOpenDialog()}>追加する</Button>
+        <Button onClick={() => handleOpenDialog()}>追加する</Button>
       </div>
 
       {isDialogOpen && (
@@ -123,7 +120,7 @@ function FilterSettingsBoard({
           onClose={onCloseDialog}
         />
       )}
-    </>
+    </div>
   );
 }
 
