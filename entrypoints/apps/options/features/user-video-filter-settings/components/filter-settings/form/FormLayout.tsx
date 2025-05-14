@@ -14,10 +14,10 @@ function FormLayout({ child, onSave, onReset }: Props) {
         <div>
           <div>{child}</div>
           <div className="p-2 flex justify-end gap-2">
-            <Button type="button" onClick={onReset}>
+            <Button type="button" onClick={onReset} className="w-24">
               リセット
             </Button>
-            <Button type="button" onClick={onSave}>
+            <Button type="button" onClick={onSave} className="w-24">
               保存
             </Button>
           </div>
