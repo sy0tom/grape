@@ -112,7 +112,7 @@ function FilterSettingsBoard({
         )}
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end py-1 mr-2">
         <Button onClick={() => handleOpenDialog()}>追加</Button>
       </div>
 

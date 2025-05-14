@@ -15,7 +15,7 @@ function FilterItem<T extends VideoFilter>({
   onDelete,
 }: Props<T>) {
   return (
-    <div className="flex items-center gap-1 bg-gray-400 rounded-md">
+    <div className="flex items-center gap-1 border shadow-md bg-white rounded-md p-1">
       <div className="p-2 w-full" onClick={onEdit}>
         <span>{filter.name}</span>
       </div>
@@ -23,13 +23,13 @@ function FilterItem<T extends VideoFilter>({
         <button onClick={onCopy}>
           <ContentCopyIcon
             fontSize="medium"
-            className="text-white hover:text-gray-300"
+            className="text-gray-600 hover:text-gray-400"
           />
         </button>
         <button onClick={onDelete}>
           <DeleteForeverIcon
             fontSize="medium"
-            className="text-white hover:text-gray-300"
+            className="text-gray-600 hover:text-gray-400"
           />
         </button>
       </div>
