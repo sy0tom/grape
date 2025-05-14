@@ -1,10 +1,11 @@
 import Sidebar from "#/components/sidebar/Sidebar";
+import FeedIcon from "@mui/icons-material/Feed";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { HashRouter, Route, Routes } from "react-router";
-import { FeedbackPage, FilterSettingsPage } from "./pages";
+import { FeedbackPage, FilterSettingsPage, NewsPage } from "./pages";
 
 function App() {
   const sidebarItems: {
@@ -12,6 +13,11 @@ function App() {
     link: string;
     icon: OverridableComponent<SvgIconTypeMap>;
   }[] = [
+    {
+      title: "お知らせ",
+      link: "/news",
+      icon: FeedIcon,
+    },
     {
       title: "フィルター設定",
       link: "/filter",
@@ -34,7 +40,8 @@ function App() {
         <main>
           <div className="p-2">
             <Routes>
-              <Route path="/" element={<FilterSettingsPage />} />
+              <Route path="/" element={<NewsPage />} />
+              <Route path="/news" element={<NewsPage />} />
               <Route path="/filter" element={<FilterSettingsPage />} />
               {/* <Route
                   path="/wait-time"

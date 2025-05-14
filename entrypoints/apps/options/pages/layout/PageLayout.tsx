@@ -15,7 +15,7 @@ function PageLayout({ title, description, content }: Props) {
           {description ? description : ""}
         </div>
       </div>
-      <div className="p-4">{content}</div>
+      <div className="px-2 py-4">{content}</div>
     </div>
   );
 }
