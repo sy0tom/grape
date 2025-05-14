@@ -16,7 +16,6 @@ function ActivationSettingsBoard({ isActive, activationService }: Props) {
       await activationService.saveVideoFilterActivate(next);
     } catch (error) {
       console.error("Error saving activation state:", error);
-      // Optionally, you can revert the state if the save fails
       setChecked(current);
     }
   };
