@@ -39,7 +39,7 @@ function FilterSettingsBoard({
     setIsDialogOpen(true);
   };
 
-  const onCloseDialog = () => {
+  const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
 
@@ -95,29 +95,32 @@ function FilterSettingsBoard({
   return (
     <div className="p-2">
       <div className="">{title}</div>
-      {filters.length ? (
-        filters.map((filter) => (
-          <div key={filter.id} className="px-2 py-1">
-            <FilterItem
-              filter={filter}
-              onEdit={() => handleOpenDialog(filter)}
-              onCopy={() => handleCopy(filter)}
-              onDelete={() => handleDelete(filter.id)}
-            />
-          </div>
-        ))
-      ) : (
-        <span>フィルターはありません</span>
-      )}
-      <div>
-        <Button onClick={() => handleOpenDialog()}>追加する</Button>
+      <div className="px-2">
+        {filters.length ? (
+          filters.map((filter) => (
+            <div key={filter.id} className="py-1">
+              <FilterItem
+                filter={filter}
+                onEdit={() => handleOpenDialog(filter)}
+                onCopy={() => handleCopy(filter)}
+                onDelete={() => handleDelete(filter.id)}
+              />
+            </div>
+          ))
+        ) : (
+          <span>フィルターはありません</span>
+        )}
+      </div>
+
+      <div className="flex justify-end">
+        <Button onClick={() => handleOpenDialog()}>追加</Button>
       </div>
 
       {isDialogOpen && (
         <VideoFilterSettingsDialog
           title={title}
           form={getForm(formType)}
-          onClose={onCloseDialog}
+          handleClose={handleCloseDialog}
         />
       )}
     </div>

@@ -1,19 +1,18 @@
-import { Button } from "#/components/ui/button";
 import ClearIcon from "@mui/icons-material/Clear";
 import { ReactNode } from "react";
 
 interface Props {
   title: string;
   form: ReactNode;
-  onClose: () => void;
+  handleClose: () => void;
 }
 
-function VideoFilterSettingsDialog({ title, form, onClose }: Props) {
+function VideoFilterSettingsDialog({ title, form, handleClose }: Props) {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-50">
       <div
         className="absolute top-0 left-0 w-full h-full bg-black/50"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       <div
@@ -23,9 +22,10 @@ function VideoFilterSettingsDialog({ title, form, onClose }: Props) {
         <div className="flex justify-between w-full">
           <div className="text-base font-sans">{title}</div>
           <div className="ml-auto">
-            <Button type="button" onClick={onClose}>
-              <ClearIcon className="text-base hover:text-gray-400" />
-            </Button>
+            <ClearIcon
+              className="text-base text-gray-600 hover:text-gray-400"
+              onClick={handleClose}
+            />
           </div>
         </div>
         {form}
