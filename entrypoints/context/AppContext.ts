@@ -9,6 +9,7 @@ import {
   UserVideoFilterSettingsService,
   VideoFilterSettingsService,
 } from "#/domain";
+import { createQuizService, QuizService } from "#/domain/quiz/QuizService";
 import {
   createAmateurFilterSettingsRepository,
   createAnimeFilterSettingsRepository,
@@ -27,6 +28,7 @@ type AppContext = {
   animeFilterSettingsService: VideoFilterSettingsService;
   loadingWaitTimeSettingsService: LoadingWaitTimeSettingsService;
   backgroundService: BackgroundService;
+  quizService: QuizService;
 };
 
 // prd repository
@@ -63,6 +65,8 @@ const userVideoFilterSettingsService = createUserVideoFilterSettingsService(
   animeFilterSettingsService,
 );
 
+const quizService = createQuizService();
+
 export const context: AppContext = {
   featureActivationService,
   userVideoFilterSettingsService,
@@ -71,4 +75,5 @@ export const context: AppContext = {
   animeFilterSettingsService,
   loadingWaitTimeSettingsService,
   backgroundService,
+  quizService,
 };

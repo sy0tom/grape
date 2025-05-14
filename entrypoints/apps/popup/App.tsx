@@ -1,26 +1,18 @@
 import BuildIcon from "@mui/icons-material/Build";
-import { useState } from "react";
-import { TopPage } from "./pages";
+import GrapeImage from "../../../public/icon.png";
+import { QuizPage } from "./pages";
 
 function App() {
   const handleOpenOptionsPage = () => {
     chrome.runtime.openOptionsPage();
   };
 
-  const [mainContent, setMainContent] = useState<React.ReactNode>(<TopPage />);
-
-  const handleChangeContent = (content: React.ReactNode) => {
-    setMainContent(content);
-  };
-
   return (
     <>
       <header>
-        <div className="w-full h-12 bg-blue-950 flex items-center justify-center">
-          <div
-            onClick={() => handleChangeContent(<TopPage />)}
-            className="flex items-center"
-          >
+        <div className="w-full h-16 bg-violet-800 flex items-center justify-center">
+          <div className="flex items-center p-2">
+            <img src={GrapeImage} alt="Grape Icon" className="w-12 h-12" />
             <span className="p-2 text-2xl font-sans font-bold text-white">
               Grape
             </span>
@@ -36,7 +28,7 @@ function App() {
         </div>
       </header>
       <main>
-        <div className="p-2">{mainContent}</div>
+        <QuizPage />
       </main>
     </>
   );

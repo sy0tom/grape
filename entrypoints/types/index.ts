@@ -21,3 +21,5 @@ export {
 } from "./FeatureActivation";
 
 export { Filter } from "./video-filter/VideoFilterSettings";
+
+export { GrowingQuiz } from "./quiz/Quiz";
