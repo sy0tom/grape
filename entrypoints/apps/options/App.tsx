@@ -6,17 +6,25 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { HashRouter, Route, Routes } from "react-router";
 import { FeedbackPage, FilterSettingsPage } from "./pages";
 
-const sidebarItems: {
-  title: string;
-  link: string;
-  icon: OverridableComponent<SvgIconTypeMap>;
-}[] = [
-  { title: "フィルター設定", link: "/filter", icon: FilterAltIcon },
-  //{ title: "Wait time Settings", link: "/wait-time", icon: SettingsIcon },
-  { title: "お問い合わせ", link: "/feedback", icon: FeedbackIcon },
-];
-
 function App() {
+  const sidebarItems: {
+    title: string;
+    link: string;
+    icon: OverridableComponent<SvgIconTypeMap>;
+  }[] = [
+    {
+      title: "フィルター設定",
+      link: "/filter",
+      icon: FilterAltIcon,
+    },
+    //{ title: "Wait time Settings", link: "/wait-time", icon: SettingsIcon },
+    {
+      title: "お問い合わせ・ご要望",
+      link: "/feedback",
+      icon: FeedbackIcon,
+    },
+  ];
+
   return (
     <HashRouter>
       <div className="flex">
