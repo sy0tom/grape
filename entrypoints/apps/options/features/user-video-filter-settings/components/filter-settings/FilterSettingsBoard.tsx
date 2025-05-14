@@ -101,9 +101,9 @@ function FilterSettingsBoard({
             <div key={filter.id} className="py-1">
               <FilterItem
                 filter={filter}
-                onEdit={() => handleOpenDialog(filter)}
-                onCopy={() => handleCopy(filter)}
-                onDelete={() => handleDelete(filter.id)}
+                handleEdit={() => handleOpenDialog(filter)}
+                handleCopy={() => handleCopy(filter)}
+                handleDelete={() => handleDelete(filter.id)}
               />
             </div>
           ))
