@@ -1,13 +1,19 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 import Tag from "./Tag";
 
 interface Props {
   initialValues?: string[];
   placeholder?: string;
   onChange: (value: string[]) => void;
+  lastInputRef?: RefObject<HTMLInputElement | null>;
 }
 
-function TagInput({ initialValues, placeholder, onChange }: Props) {
+function TagInput({
+  initialValues,
+  placeholder,
+  onChange,
+  lastInputRef,
+}: Props) {
   const tagRootRef = useRef<HTMLDivElement>(null);
   const minFocusIndex = -1;
   const [tags, setTags] = useState<string[]>(initialValues ?? []);
@@ -210,6 +216,7 @@ function TagInput({ initialValues, placeholder, onChange }: Props) {
           onKeyDown={handleKeyDown}
           className="absolute top-0 left-0 bg-transparent outline-none"
           style={{ width: inputWidth }}
+          ref={index === tags.length - 1 ? lastInputRef : undefined}
         />
         <span
           ref={(el) => {

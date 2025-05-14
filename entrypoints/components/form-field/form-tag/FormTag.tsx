@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   Control,
   Controller,
@@ -23,12 +24,10 @@ function FormTag<T extends FieldValues>({
   name,
   control,
 }: Props<T>) {
-  // const inputRef = useRef<HTMLInputElement>(null);
+  const lastInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div
-    //onClick={() => inputRef.current?.focus()}
-    >
+    <div onClick={() => lastInputRef.current?.focus()}>
       <FormFieldLayout
         label={label}
         child={
@@ -40,7 +39,7 @@ function FormTag<T extends FieldValues>({
                 {/* TODO: タグを選択されたときにInputタグの末尾にフォーカスを当てる */}
                 {/* TODO: タグが長くなったらスクロールを入れる */}
                 <TagInput
-                  // ref={inputRef}
+                  lastInputRef={lastInputRef}
                   initialValues={field.value}
                   placeholder={placeholder}
                   onChange={field.onChange}
