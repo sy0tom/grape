@@ -1,3 +1,4 @@
+import { UIconst } from "#/constants";
 import { context } from "#/context";
 import { ReactNode } from "react";
 import useSWR from "swr";
@@ -19,11 +20,11 @@ function FilterSettingsPage() {
   );
 
   if (!data && !error) {
-    return <span>Loading...</span>;
+    return <span>{UIconst.msg.loading}</span>;
   }
 
   if (error) {
-    return <span>Error: {error.message}</span>;
+    return <span>{UIconst.msg.loadingError}</span>;
   }
 
   if (data) {
@@ -37,7 +38,7 @@ function FilterSettingsPage() {
     };
     return (
       <PageLayout
-        title="フィルター設定"
+        title={UIconst.menu.filterSettings}
         description="よく使うフィルターを保存してから作品一覧から選択できます。"
         content={
           <>
@@ -52,26 +53,23 @@ function FilterSettingsPage() {
               "フィルター",
               <div>
                 <FilterSettingsBoard
-                  title="ビデオ"
+                  title={UIconst.label.avFilter}
                   initialValues={data.avFilters}
                   videoFilterSettingsService={context.avFilterSettingsService}
-                  formType="av"
                 />
                 <FilterSettingsBoard
-                  title="素人"
+                  title={UIconst.label.amateurFilter}
                   initialValues={data.amateurFilters}
                   videoFilterSettingsService={
                     context.amateurFilterSettingsService
                   }
-                  formType="amateur"
                 />
                 <FilterSettingsBoard
-                  title="アニメ"
+                  title={UIconst.label.animeFilter}
                   initialValues={data.animeFilters}
                   videoFilterSettingsService={
                     context.animeFilterSettingsService
                   }
-                  formType="anime"
                 />
               </div>,
             )}

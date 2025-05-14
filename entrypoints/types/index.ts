@@ -1,10 +1,12 @@
+import { UIconst } from "#/constants";
+
 export { BackgroundTask } from "./BackgroundTask";
 
 export {
-  OptionFilterConfig,
   amateurFilterConfig,
   animeFilterConfig,
   avFilterConfig,
+  OptionFilterConfig,
 } from "./video-filter/VideoFilterConfig";
 
 export {
@@ -23,3 +25,8 @@ export {
 export { Filter } from "./video-filter/VideoFilterSettings";
 
 export { GrowingQuiz } from "./quiz/ActressQuiz";
+
+export type VideoFilterType =
+  | typeof UIconst.label.avFilter
+  | typeof UIconst.label.amateurFilter
+  | typeof UIconst.label.animeFilter;

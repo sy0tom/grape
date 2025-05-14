@@ -1,13 +1,12 @@
 import { Button } from "#/components/ui/button";
+import { UIconst } from "#/constants";
 import { context } from "#/context";
-import { VideoFilter } from "#/types";
+import { VideoFilter, VideoFilterType } from "#/types";
 import InfoIcon from "@mui/icons-material/Info";
 import useSWR from "swr";
 
-export type FilterTye = "AvFilter" | "AmateurFilter" | "AnimeFilter";
-
 interface Props {
-  type: FilterTye;
+  type: VideoFilterType;
 }
 
 function VideoFilterArea({ type }: Props) {
@@ -27,11 +26,11 @@ function VideoFilterArea({ type }: Props) {
   };
 
   if (!data && !error) {
-    return <div>loading...</div>;
+    return <div>{UIconst.msg.loading}</div>;
   }
 
   if (error) {
-    return <div>Error loading data</div>;
+    return <div>{UIconst.msg.loadingError}</div>;
   }
 
   const get = (label: string, option: string | undefined): string => {
@@ -40,12 +39,12 @@ function VideoFilterArea({ type }: Props) {
 
   const getInfo = (filter: VideoFilter): string => {
     return (
-      get("2D/VR", filter.params?.mediaOption) +
-      get("配信形式", filter.params?.qualityOption) +
-      get("価格", filter.params?.priceOption) +
-      get("配信開始日", filter.params?.releaseOption) +
-      get("並び替え", filter.params?.sortOption) +
-      get("キーワード", filter.params?.keywords?.join(","))
+      get(UIconst.label.mediaTypeFilter, filter.params?.mediaOption) +
+      get(UIconst.label.qualityFilter, filter.params?.qualityOption) +
+      get(UIconst.label.priceFilter, filter.params?.priceOption) +
+      get(UIconst.label.releaseFilter, filter.params?.releaseOption) +
+      get(UIconst.label.sortFilter, filter.params?.sortOption) +
+      get(UIconst.label.keywordFilter, filter.params?.keywords?.join(","))
     ).slice(0, -1);
   };
 
@@ -69,11 +68,11 @@ function VideoFilterArea({ type }: Props) {
   };
 
   switch (type) {
-    case "AvFilter":
+    case UIconst.label.avFilter:
       return renderButtons(data?.avFilters);
-    case "AmateurFilter":
+    case UIconst.label.amateurFilter:
       return renderButtons(data?.amateurFilters);
-    case "AnimeFilter":
+    case UIconst.label.animeFilter:
       return renderButtons(data?.animeFilters);
   }
 }

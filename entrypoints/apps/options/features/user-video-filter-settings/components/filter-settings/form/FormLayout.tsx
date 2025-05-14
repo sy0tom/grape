@@ -1,4 +1,5 @@
 import { Button } from "#/components/ui/button";
+import { UIconst } from "#/constants";
 import { ReactNode } from "react";
 
 interface Props {
@@ -15,10 +16,10 @@ function FormLayout({ child, handleSave, handleReset }: Props) {
           <div>{child}</div>
           <div className="mr-3 flex justify-end gap-2">
             <Button type="button" onClick={handleReset} className="w-24">
-              リセット
+              {UIconst.button.reset}
             </Button>
             <Button type="button" onClick={handleSave} className="w-24">
-              保存
+              {UIconst.button.save}
             </Button>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { FormInput, FormTag } from "#/components/form-field";
+import { UIconst } from "#/constants";
 import { Filter, OptionFilterConfig, VideoFilter } from "#/types";
 import { ReactNode } from "react";
 import { Path, useForm } from "react-hook-form";
@@ -67,7 +68,7 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
           <>
             <div className="p-2">
               {fieldRender(
-                "フィルター名",
+                UIconst.label.filterName,
                 <FormInput
                   type="text"
                   placeholder="お気に入り"
@@ -78,7 +79,7 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
                 />,
               )}
               {fieldRender(
-                "フィルター条件",
+                UIconst.label.filterType,
                 <div className="flex gap-1">
                   {optionFilterValues.map((value) => (
                     <FilterOptions
@@ -91,7 +92,7 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
                 </div>,
               )}
               {fieldRender(
-                "キーワード",
+                UIconst.label.keywordFilter,
                 <FormTag
                   placeholder="+巨乳 -ベスト"
                   name="params.keywords"

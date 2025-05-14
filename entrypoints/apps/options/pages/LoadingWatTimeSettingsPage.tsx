@@ -1,3 +1,4 @@
+import { UIconst } from "#/constants";
 import { context } from "#/context";
 import useSWR from "swr";
 import { LoadingWaitTimeSettingsForm } from "../features/loading-wait-time-settings";
@@ -8,10 +9,10 @@ function LoadingWatTimeSettingsPage() {
   );
 
   if (!data && !error) {
-    return <span>Loading...</span>;
+    return <span>{UIconst.msg.loading}</span>;
   }
   if (error) {
-    return <span>Error: {error.message}</span>;
+    return <span>{UIconst.msg.loadingError}</span>;
   }
 
   if (data) {

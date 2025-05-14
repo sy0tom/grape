@@ -1,4 +1,5 @@
 import Sidebar from "#/components/sidebar/Sidebar";
+import { UIconst } from "#/constants";
 import FeedIcon from "@mui/icons-material/Feed";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
@@ -14,18 +15,18 @@ function App() {
     icon: OverridableComponent<SvgIconTypeMap>;
   }[] = [
     {
-      title: "お知らせ",
+      title: UIconst.menu.news,
       link: "/news",
       icon: FeedIcon,
     },
     {
-      title: "フィルター設定",
+      title: UIconst.menu.filterSettings,
       link: "/filter",
       icon: FilterAltIcon,
     },
     //{ title: "Wait time Settings", link: "/wait-time", icon: SettingsIcon },
     {
-      title: "お問い合わせ・ご要望",
+      title: UIconst.menu.feedback,
       link: "/feedback",
       icon: FeedbackIcon,
     },

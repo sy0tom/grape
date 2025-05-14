@@ -1,5 +1,6 @@
 import { FormInput } from "#/components/form-field";
 import { Button } from "#/components/ui/button";
+import { UIconst } from "#/constants";
 import { LoadingWaitTimeSettings } from "#/types";
 import { useForm } from "react-hook-form";
 
@@ -84,7 +85,7 @@ function LoadingWaitTimeSettingsForm({ initialValues }: Props) {
             onClick={onReset}
             disabled={isSubmitting}
           >
-            リセット
+            {UIconst.button.reset}
           </Button>
           <Button
             type="button"
@@ -92,7 +93,7 @@ function LoadingWaitTimeSettingsForm({ initialValues }: Props) {
             onClick={handleSubmit(onSubmit)}
             disabled={isSubmitting}
           >
-            保存
+            {UIconst.button.save}
           </Button>
         </div>
       </form>

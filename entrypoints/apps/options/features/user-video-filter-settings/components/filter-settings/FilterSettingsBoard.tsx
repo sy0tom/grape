@@ -1,30 +1,28 @@
 import { Button } from "#/components/ui/button";
+import { UIconst } from "#/constants";
 import { VideoFilterSettingsService } from "#/domain";
 import {
   amateurFilterConfig,
   animeFilterConfig,
   avFilterConfig,
   VideoFilter,
+  VideoFilterType,
 } from "#/types";
 import { ReactNode } from "react";
 import FilterItem from "./FilterItem";
 import VideoFilterSettingsDialog from "./dialog/VideoFilterSettingsDialog";
 import VideoFilterSettingsForm from "./form/VideoFilterSettingsForm";
 
-type FilterFormType = "av" | "amateur" | "anime";
-
 interface Props {
-  title: string;
+  title: VideoFilterType;
   initialValues: VideoFilter[];
   videoFilterSettingsService: VideoFilterSettingsService;
-  formType: FilterFormType;
 }
 
 function FilterSettingsBoard({
   title,
   initialValues,
   videoFilterSettingsService,
-  formType,
 }: Props) {
   const [filters, setFilters] = useState<VideoFilter[]>(initialValues);
 
@@ -63,9 +61,9 @@ function FilterSettingsBoard({
     setFilters(newData);
   };
 
-  const getForm = (formType: FilterFormType): ReactNode => {
-    switch (formType) {
-      case "av":
+  const getForm = (): ReactNode => {
+    switch (title) {
+      case UIconst.label.avFilter:
         return (
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
@@ -73,7 +71,7 @@ function FilterSettingsBoard({
             handleSave={handleSave}
           />
         );
-      case "amateur":
+      case UIconst.label.amateurFilter:
         return (
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
@@ -81,7 +79,7 @@ function FilterSettingsBoard({
             handleSave={handleSave}
           />
         );
-      case "anime":
+      case UIconst.label.animeFilter:
         return (
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
@@ -113,13 +111,13 @@ function FilterSettingsBoard({
       </div>
 
       <div className="flex justify-end py-1 mr-2">
-        <Button onClick={() => handleOpenDialog()}>追加</Button>
+        <Button onClick={() => handleOpenDialog()}>{UIconst.button.add}</Button>
       </div>
 
       {isDialogOpen && (
         <VideoFilterSettingsDialog
           title={title}
-          form={getForm(formType)}
+          form={getForm()}
           handleClose={handleCloseDialog}
         />
       )}

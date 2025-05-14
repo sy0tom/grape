@@ -1,9 +1,10 @@
+import { UIconst } from "#/constants";
 import PageLayout from "./layout/PageLayout";
 
 function NewsPage() {
   return (
     <PageLayout
-      title="お知らせ"
+      title={UIconst.menu.news}
       content={<div className="px-2">新しいお知らせはありません。</div>}
     />
   );
