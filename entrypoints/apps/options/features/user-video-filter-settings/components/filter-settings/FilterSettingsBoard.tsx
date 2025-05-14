@@ -43,7 +43,7 @@ function FilterSettingsBoard({
     setIsDialogOpen(false);
   };
 
-  const onSave = async (data: VideoFilter) => {
+  const handleSave = async (data: VideoFilter) => {
     console.log(`${JSON.stringify(data)}`);
     await videoFilterSettingsService.save(data);
     const newData = await videoFilterSettingsService.getAll();
@@ -70,7 +70,7 @@ function FilterSettingsBoard({
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
             optionFilterConfig={avFilterConfig}
-            onSave={(data) => onSave(data)}
+            handleSave={handleSave}
           />
         );
       case "amateur":
@@ -78,7 +78,7 @@ function FilterSettingsBoard({
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
             optionFilterConfig={amateurFilterConfig}
-            onSave={(data) => onSave(data)}
+            handleSave={handleSave}
           />
         );
       case "anime":
@@ -86,7 +86,7 @@ function FilterSettingsBoard({
           <VideoFilterSettingsForm
             initialValues={selectedFilter}
             optionFilterConfig={animeFilterConfig}
-            onSave={(data) => onSave(data)}
+            handleSave={handleSave}
           />
         );
     }

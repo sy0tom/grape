@@ -9,7 +9,7 @@ interface Props {
 function ActivationSettingsForm({ isActive, activationService }: Props) {
   const [checked, setChecked] = useState(isActive);
 
-  const onSave = async (current: boolean) => {
+  const handleSave = async (current: boolean) => {
     const next = !current;
     setChecked(next);
     try {
@@ -20,7 +20,7 @@ function ActivationSettingsForm({ isActive, activationService }: Props) {
     }
   };
 
-  return <Switch checked={checked} onClick={() => onSave(checked)} />;
+  return <Switch checked={checked} onClick={() => handleSave(checked)} />;
 }
 
 export default ActivationSettingsForm;

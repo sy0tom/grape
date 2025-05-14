@@ -3,21 +3,21 @@ import { ReactNode } from "react";
 
 interface Props {
   child: ReactNode;
-  onSave: () => void;
-  onReset: () => void;
+  handleSave: () => void;
+  handleReset: () => void;
 }
 
-function FormLayout({ child, onSave, onReset }: Props) {
+function FormLayout({ child, handleSave, handleReset }: Props) {
   return (
     <div className="form-container">
       <form>
         <div>
           <div>{child}</div>
           <div className="mr-3 flex justify-end gap-2">
-            <Button type="button" onClick={onReset} className="w-24">
+            <Button type="button" onClick={handleReset} className="w-24">
               リセット
             </Button>
-            <Button type="button" onClick={onSave} className="w-24">
+            <Button type="button" onClick={handleSave} className="w-24">
               保存
             </Button>
           </div>

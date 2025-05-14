@@ -8,23 +8,19 @@ import FormLayout from "./FormLayout";
 interface Props<T extends VideoFilter> {
   initialValues?: T;
   optionFilterConfig: OptionFilterConfig;
-  onSave: (data: VideoFilter) => Promise<void>;
+  handleSave: (data: VideoFilter) => Promise<void>;
 }
 
 function VideoFilterSettingsForm<T extends VideoFilter>({
   initialValues,
   optionFilterConfig,
-  onSave,
+  handleSave,
 }: Props<T>) {
   const createDefaultValues = (data?: VideoFilter): VideoFilter => {
     return data ? { ...data } : ({} as VideoFilter);
   };
 
   const defaultValues = createDefaultValues(initialValues);
-
-  const _onSave = async (data: VideoFilter) => {
-    await onSave(data);
-  };
 
   const {
     register,
@@ -65,8 +61,8 @@ function VideoFilterSettingsForm<T extends VideoFilter>({
   return (
     <>
       <FormLayout
-        onSave={handleSubmit(_onSave)}
-        onReset={onReset}
+        handleSave={handleSubmit(handleSave)}
+        handleReset={onReset}
         child={
           <>
             <div className="p-2">
