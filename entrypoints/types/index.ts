@@ -22,4 +22,4 @@ export {
 
 export { Filter } from "./video-filter/VideoFilterSettings";
 
-export { GrowingQuiz } from "./quiz/Quiz";
+export { GrowingQuiz } from "./quiz/ActressQuiz";

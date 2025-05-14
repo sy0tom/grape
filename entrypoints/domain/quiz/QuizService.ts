@@ -2,6 +2,7 @@ import { GrowingQuiz } from "#/types";
 
 export function createQuizService() {
   return {
+    // todo クイズを取得する
     getQuiz: (): GrowingQuiz => {
       return {
         actressId: "1098810",
@@ -11,6 +12,10 @@ export function createQuizService() {
         quizAnswerUr:
           "https://pics.dmm.co.jp/digital/video/jur00016/jur00016jp-5.jpg",
       };
+    },
+    // todo 作品情報を取得する
+    getActressInfo: (): GrowingQuiz => {
+      throw new Error("Not implemented");
     },
   };
 }
