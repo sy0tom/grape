@@ -19,20 +19,22 @@ const sidebarItems: {
 function App() {
   return (
     <HashRouter>
-      <div className="flex items-center">
+      <div className="flex">
         <header>
           <Sidebar items={sidebarItems} />
         </header>
         <main>
-          <Routes>
-            <Route path="/" element={<FilterSettingsPage />} />
-            <Route path="/filter" element={<FilterSettingsPage />} />
-            {/* <Route
+          <div className="p-2">
+            <Routes>
+              <Route path="/" element={<FilterSettingsPage />} />
+              <Route path="/filter" element={<FilterSettingsPage />} />
+              {/* <Route
                   path="/wait-time"
                   element={<LoadingWatTimeSettingsPage />}
                 /> */}
-            <Route path="/feedback" element={<FeedbackPage />} />
-          </Routes>
+              <Route path="/feedback" element={<FeedbackPage />} />
+            </Routes>
+          </div>
         </main>
       </div>
     </HashRouter>
