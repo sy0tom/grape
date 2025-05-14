@@ -38,7 +38,7 @@ function FormTag<T extends FieldValues>({
             render={({ field }) => (
               <div className="border-input border rounded-md p-2 w-full focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[3px] transition-[color,box-shadow] outline-none shadow-xs">
                 {/* TODO: タグを選択されたときにInputタグの末尾にフォーカスを当てる */}
-                {/* TODO: 子要素に選択されたときに強調させる */}
+                {/* TODO: タグが長くなったらスクロールを入れる */}
                 <TagInput
                   // ref={inputRef}
                   initialValues={field.value}
