@@ -1,23 +1,24 @@
 import "#/styles/globals.css";
+import { VideoFilterType } from "#/types";
 import { createRoot, Root } from "react-dom/client";
-import VideoFilterArea, { FilterTye } from "./components/VideoFilterArea";
+import VideoFilterArea from "./components/VideoFilterArea";
 
-export async function injectSavedFiltersMain(
-  url: string,
-  filterType: FilterTye,
-) {
-  const root = await getSavedFiltersInjectRoot(filterType);
+export async function injectSavedFiltersMain(filterType: VideoFilterType) {
+  const root = getSavedFiltersInjectRoot(filterType);
+  if (!root) {
+    return;
+  }
 
   root.render(<VideoFilterArea type={filterType} />);
 }
 
-async function getSavedFiltersInjectRoot(filterType: FilterTye): Promise<Root> {
+function getSavedFiltersInjectRoot(filterType: VideoFilterType): Root | null {
   const queryPath =
     "body > main > div > div.ml-4.grow.min-w-0.z-0 > div:nth-child(4)";
   const grapeFilterInjectFieldId = `grape-filter-inject-field-${filterType}`;
 
   if (document.getElementById(grapeFilterInjectFieldId)) {
-    throw new Error("Element already exists");
+    return null;
   }
 
   const element = document.querySelector(queryPath) as HTMLDivElement;

@@ -1,3 +1,4 @@
+import { UIconst } from "#/constants";
 import { context } from "#/context";
 import { injectSavedFiltersMain } from "./contents/features/video-filter/main";
 
@@ -9,9 +10,9 @@ export default defineContentScript({
         const currentUrl = window.location.href;
         handleInjection(currentUrl);
       } catch (e) {
-        alert(e);
+        console.log("Error in content script:", e);
       }
-    });
+    }, 500);
   },
 });
 
@@ -19,11 +20,11 @@ async function handleInjection(url: string) {
   const featureActivate = await context.featureActivationService.get();
   if (featureActivate.videoFilter) {
     if (url.startsWith("https://video.dmm.co.jp/av/")) {
-      injectSavedFiltersMain(url, "AvFilter");
+      injectSavedFiltersMain(UIconst.label.avFilter);
     } else if (url.startsWith("https://video.dmm.co.jp/amateur/")) {
-      injectSavedFiltersMain(url, "AmateurFilter");
+      injectSavedFiltersMain(UIconst.label.amateurFilter);
     } else if (url.startsWith("https://video.dmm.co.jp/anime/")) {
-      injectSavedFiltersMain(url, "AnimeFilter");
+      injectSavedFiltersMain(UIconst.label.animeFilter);
     }
   }
 }

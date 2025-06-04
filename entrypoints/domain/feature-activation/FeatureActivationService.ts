@@ -1,4 +1,4 @@
-import { FeatureActivation } from "#/types";
+import { Activation, FeatureActivation } from "#/types2";
 import { FeatureActivationRepository } from "./FeatureActivationRepository";
 
 export function createFeatureActivationService(
@@ -17,13 +17,9 @@ export function createFeatureActivationService(
   return {
     get: async (): Promise<FeatureActivation> => get(),
 
-    save: (model: FeatureActivation) => save(model),
-
-    saveVideoFilterActivate: async (model: boolean) => {
+    save: async (data: Activation) => {
       const command = await get();
-      console.log(`videoFilter is ${command.videoFilter}`);
-      console.log(`videoFilter to be${model}`);
-      save({ ...command, videoFilter: model });
+      save({ ...command, ...data });
     },
   };
 }
